@@ -1,0 +1,29 @@
+Topic: Website for games community
+
+-Communication between accounts
++Login feature
++Database to store user's data/posts/msg logs/followages/etc
+Homepage
+-login page
+-game category page, nearest posts
+
+
+-Posts, groups of games, followage
++Notification new follage posts
++Game category/create request
++Followage feature
++Group->Admin/Request/Members
+
+-Search bar
++Search group.->Show posts in group
++Search games.->Show result, related groups,
+
+-Checkin-topup
++Navigate to topup page razer
+
+-Group + Event, code,
+
+-Hot topic posts/creators.
++Track followages on each user
+
+-Contact/copy rights etc...
