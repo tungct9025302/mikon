@@ -9,12 +9,12 @@ import Searchbar from "./components/page";
 
 export default function homepage() {
   return (
-    <div className="flex flex-row bg-white px-10 text-black font-bold text-[1.2em] items-center justify-between h-[70px]">
+    <div className="flex flex-row px-10 text-black font-bold text-[1.2em] items-center justify-between h-[70px] bg-[#fdfcfc]">
       <div className="flex flex-row space-x-16 items-center">
         <div>
           <Image src={icon} width={200} height={50} alt=""></Image>
         </div>
-        <div>Home</div>
+        <div className="hover:text-white">Home</div>
         <div>Games</div>
       </div>
 
