@@ -9,7 +9,7 @@ import { Avatar } from "@material-tailwind/react";
 import Searchbar from "./components/page";
 
 export default function homepage() {
-  const [hover, setHover] = useState();
+  const [tab, setTab] = useState(0);
 
   return (
     <div className="flex flex-row px-10  font-bold text-[1.2em] items-center justify-between h-[70px] bg-[#fdfcfc]">
@@ -17,15 +17,39 @@ export default function homepage() {
         <div>
           <Image src={icon} width={200} height={50} alt=""></Image>
         </div>
-        <div className="hover:text-black  text-zinc-400">
-          <div className="pb-2">Home</div>
+        <div
+          className="text-zinc-400 group/home cursor-pointer"
+          onClick={() => {
+            setTab(0);
+          }}
+        >
+          <div className={tab == 0 ? "pb-2  text-black" : "pb-2"}>Home</div>
 
-          <div className="w-[50%] max-w-[20px] border-b-4 border-sky-600 m-auto "></div>
+          <div
+            className={
+              tab == 0
+                ? "w-[50%] max-w-[20px] border-b-4 border-sky-600 m-auto"
+                : "w-[50%] max-w-[20px] border-b-4 border-sky-600 m-auto group-hover/home:visible invisible"
+            }
+          ></div>
         </div>
-        <div className="hover:text-black text-zinc-400">
-          <div className="pb-2">Categories</div>
+        <div
+          className="hover:text-black text-zinc-400 group/categories cursor-pointer"
+          onClick={() => {
+            setTab(1);
+          }}
+        >
+          <div className={tab == 1 ? "pb-2 text-black" : "pb-2"}>
+            Categories
+          </div>
 
-          <div className="w-[50%] max-w-[20px]  border-b-4 border-sky-600 m-auto"></div>
+          <div
+            className={
+              tab == 1
+                ? "w-[50%] max-w-[20px] border-b-4 border-sky-600 m-auto"
+                : "w-[50%] max-w-[20px] border-b-4 border-sky-600 m-auto group-hover/categories:visible invisible group-hover/categories:home"
+            }
+          ></div>
         </div>
       </div>
 
