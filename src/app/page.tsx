@@ -6,7 +6,7 @@ import icon from "../app/assets/icon.png";
 import NotificationImg from "../app/assets/notification.png";
 import CreatePostImg from "../app/assets/create-post.svg";
 import { Avatar } from "@material-tailwind/react";
-import Searchbar from "./components/page";
+import Searchbar from "./components/searchbar";
 
 export default function homepage() {
   const [tab, setTab] = useState(0);
