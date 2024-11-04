@@ -2,20 +2,57 @@
 
 import React from "react";
 import { useState } from "react";
-import SearchIcon from "@/app/assets/search.svg";
+import { useRef, useEffect } from "react";
 import { Avatar } from "@material-tailwind/react";
 import MenuIcon from "@/app/assets/menu.svg";
 import RightArrow from "@/app/assets/right-arrow.svg";
+import BottomArrow from "@/app/assets/bottom-arrow.svg";
 import Image from "next/image";
 
 export default function searchbar() {
   const [selected, setSelected] = useState(false);
-
   const [showResult, setShowResult] = useState(false);
-  var a = [1, 2, 3];
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleOutSideClick = (event) => {
+      if (!ref.current?.contains(event.target)) {
+        setShowResult(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutSideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [ref]);
+
+  var samples = ["Honkai Impact", "Genshin Impact", "League Of Legends"];
+
+  function generateRow(name) {
+    return (
+      <div
+        key={name}
+        className="flex cursor-pointer w-full border-gray-300 rounded-lg hover:bg-teal-100 h-10 align-center items-center"
+      >
+        <div className="flex flex-row relative items-center m-1 mr-2 w-8 h-8 mt-1 rounded-full">
+          <img
+            className="rounded-full"
+            alt="A"
+            src="https://randomuser.me/api/portraits/men/62.jpg"
+          />
+
+          <p className="font-normal pl-2 w-full whitespace-nowrap">{name}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="flex flex-col items-center relative">
+      <div ref={ref} className="flex flex-col items-center relative">
         <div className="flex flex-row rounded-full bg-[#f2f2f2] space-x-1 w-full min-w-[600px]">
           {selected ? (
             <Avatar
@@ -42,7 +79,25 @@ export default function searchbar() {
             ></Image>
           )}
 
-          <Image src={RightArrow} width={35} height={35} alt=""></Image>
+          {showResult ? (
+            <Image
+              src={BottomArrow}
+              width={30}
+              height={30}
+              alt=""
+              className="transition-transform duration-500 ease-in-out transform rotate-0"
+              onClick={() => setShowResult(false)}
+            ></Image>
+          ) : (
+            <Image
+              src={RightArrow}
+              width={30}
+              height={30}
+              alt=""
+              className="transition-transform duration-500 ease-in-out transform rotate-0"
+              onClick={() => setShowResult(true)}
+            ></Image>
+          )}
 
           <div className="border-r-2 h-[3vh] m-auto"></div>
 
@@ -90,25 +145,11 @@ export default function searchbar() {
           }
         >
           <div className="flex flex-col w-full">
-            {a.map(() => {
-              return <>{generateRow()}</>;
+            {samples.map((item) => {
+              return generateRow(item);
             })}
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function generateRow() {
-  return (
-    <div className="flex cursor-pointer w-full border-gray-300 rounded-lg hover:bg-teal-100 h-10 align-center items-center">
-      <div className="flex relative bg-orange-500 justify-center items-center m-1 mr-2 w-8 h-8 mt-1 rounded-full">
-        <img
-          className="rounded-full"
-          alt="A"
-          src="https://randomuser.me/api/portraits/men/62.jpg"
-        />
       </div>
     </div>
   );
