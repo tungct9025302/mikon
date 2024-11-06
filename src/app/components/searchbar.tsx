@@ -12,6 +12,7 @@ import Image from "next/image";
 export default function searchbar() {
   const [selected, setSelected] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const ref = useRef(null);
 
@@ -36,6 +37,9 @@ export default function searchbar() {
       <div
         key={name}
         className="flex cursor-pointer w-full border-gray-300 rounded-lg hover:bg-teal-100 h-10 align-center items-center"
+        onClick={() => {
+          setSearchValue(name);
+        }}
       >
         <div className="flex flex-row relative items-center m-1 mr-2 w-8 h-8 mt-1 rounded-full">
           <img
@@ -49,6 +53,10 @@ export default function searchbar() {
       </div>
     );
   }
+
+  const handleInputChange = (event) => {
+    setSearchValue(event.target.value);
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -103,8 +111,10 @@ export default function searchbar() {
 
           <input
             type="text"
-            className="w-full bg-[#0d1829] flex bg-transparent pl-2 text-black font-semibold outline-0 text-md"
+            className="w-full bg-[#0d1829] flex bg-transparent pl-2 text-black font-medium outline-0 text-md"
             placeholder="What is in your mind"
+            value={searchValue}
+            onChange={(event) => handleInputChange(event)}
             onClick={() => {
               setShowResult(true);
             }}
