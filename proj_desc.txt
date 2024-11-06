@@ -7,6 +7,8 @@ Homepage
 -login page
 -game category page, nearest posts
 
+Post->Name, time, title, pic, reactions, comment, share, menu options (save, report, hidden), follow
+
 
 -Posts, groups of games, followage
 +Notification new follage posts
