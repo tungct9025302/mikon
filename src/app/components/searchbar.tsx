@@ -119,7 +119,7 @@ export default function searchbar() {
               setShowResult(true);
             }}
           />
-          <button type="submit" className="relative p-2  ounded-full">
+          <button type="submit" className="relative p-2  rounded-full">
             <svg
               width="30px"
               height="30px"

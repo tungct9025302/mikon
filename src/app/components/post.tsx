@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "@material-tailwind/react";
+import Image from "next/image";
 import YoimiyaIcon from "@/app/assets/yoimiya.png";
 
+//import icons
+import CommentIcon from "@/app/assets/comment-icon.svg";
+import HeartIcon from "@/app/assets/heart.png";
+import LikeIcon from "@/app/assets/like.png";
+import Like2Icon from "@/app/assets/like2.png";
+import ViewedIcon from "@/app/assets/viewed.png";
+import NotLikeIcon from "@/app/assets/notlike.png";
+
 export default function post() {
+  const [liked, setLiked] = useState(false);
+
   const postSamples = [
     {
       avatar: "123",
@@ -28,9 +39,13 @@ export default function post() {
     // },
   ];
 
+  function handleAddLike() {
+    console.log("liked");
+  }
+
   function renderPostByData(postData, index) {
     return (
-      <div key={index} className="m-5 flex flex-col">
+      <div key={index} className="p-5 flex flex-col border-b">
         <div className="flex flex-row items-center">
           <div className="mr-2">
             <Avatar
@@ -56,18 +71,22 @@ export default function post() {
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <div className="text-2xl font-medium text-black">
-            {postData["title"]}
+        <div className="flex flex-col space-y-2">
+          <div className="">
+            <p className="text-2xl font-medium text-black">
+              {postData["title"]}
+            </p>
           </div>
-          <div className="text-md font-normal text-slate-600">
-            {postData["content"]}
+          <div className="">
+            <p className="text-md font-normal text-slate-600">
+              {postData["content"]}
+            </p>
           </div>
 
           <div className="flex flex-row space-x-4">
-            {postData["images"].map((imageSrc) => {
+            {postData["images"].map((imageSrc, index) => {
               return (
-                <div className="">
+                <div key={index} className="">
                   <img
                     src={imageSrc}
                     className="max-h-[20vh] max-w-[20vw]"
@@ -75,6 +94,68 @@ export default function post() {
                 </div>
               );
             })}
+          </div>
+
+          <div className="mt-4 mx-4 flex flex-row justify-between">
+            <div className="flex flex-row items-center space-x-1">
+              <Image src={ViewedIcon} width={30} height={30} alt=""></Image>
+              <div className="text-slate-500 font-semibold">123</div>
+            </div>
+            <div className="flex flex-row w-[15vw] justify-between">
+              <div className="flex flex-row  items-center">
+                <Image src={CommentIcon} width={40} height={40} alt=""></Image>
+                <div className="text-slate-500 font-semibold">123</div>
+              </div>
+              <div className="flex flex-row">
+                <div className="flex flex-row items-center space-x-1 mr-2">
+                  <div className="absolute">
+                    <Image
+                      src={Like2Icon}
+                      width={30}
+                      height={30}
+                      alt=""
+                    ></Image>
+                  </div>
+                  <div className="relative pl-2">
+                    <Image
+                      src={HeartIcon}
+                      width={30}
+                      height={30}
+                      alt=""
+                    ></Image>
+                  </div>
+                </div>
+
+                {liked ? (
+                  <div className="flex flex-row items-center space-x-1 border-2 border-transparent rounded-full p-1 bg-[#CEE5FF]">
+                    <Image
+                      src={LikeIcon}
+                      width={25}
+                      height={25}
+                      alt=""
+                      onClick={() => {
+                        setLiked(!liked);
+                      }}
+                    ></Image>
+                    <div className="text-slate-500 font-semibold">123</div>
+                  </div>
+                ) : (
+                  <div className="flex flex-row items-center space-x-1">
+                    <Image
+                      src={NotLikeIcon}
+                      width={25}
+                      height={25}
+                      alt=""
+                      onClick={() => {
+                        setLiked(!liked);
+                        handleAddLike();
+                      }}
+                    ></Image>
+                    <div className="text-slate-500 font-semibold">123</div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
