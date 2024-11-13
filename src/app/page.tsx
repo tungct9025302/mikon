@@ -8,6 +8,7 @@ import CreatePostImg from "../app/assets/create-post.svg";
 import { Avatar } from "@material-tailwind/react";
 import Searchbar from "./components/searchbar";
 import Post from "./components/post";
+import UltilityBox from "./components/ultilitybox";
 
 export default function homepage() {
   const [tab, setTab] = useState(0);
@@ -108,7 +109,7 @@ export default function homepage() {
         </div>
       </div>
 
-      <div className="bg-[#F5F6F7] h-[92vh] flex flex-row justify-center pt-6">
+      <div className="bg-[#F5F6F7] h-full flex flex-row justify-center pt-6">
         <div className="min-w-[50vw] bg-[#FFFFFF] rounded-2xl mr-10">
           <div className="flex flex-col">
             <div className="flex flex-row min-h-[8vh] items-center space-x-10 pl-8">
@@ -122,7 +123,9 @@ export default function homepage() {
           {/* renderPost */}
           <Post></Post>
         </div>
-        <div className="min-w-[20vw] bg-[#FFFFFF] rounded-2xl">123</div>
+        <div className="min-w-[20vw]">
+          <UltilityBox></UltilityBox>
+        </div>
       </div>
     </div>
   );

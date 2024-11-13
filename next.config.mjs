@@ -9,6 +9,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "google.com",
       },
+      {
+        protocol: "https",
+        hostname: "ibb.co",
+      },
     ],
   },
 };

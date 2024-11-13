@@ -28,15 +28,32 @@ export default function post() {
       reaction: "123",
       followStatus: "123",
     },
-    // {
-    //   avatar: "123",
-    //   name: "123",
-    //   title: "123",
-    //   content: "123",
-    //   image: "123",
-    //   reaction: "123",
-    //   followStatus: "123",
-    // },
+    {
+      avatar: "123",
+      name: "Phuoc Thinh",
+      time: "11/6/2024",
+      title: "Post title",
+      content: "abcccccc",
+      images: [
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
+      ],
+      reaction: "123",
+      followStatus: "123",
+    },
+    {
+      avatar: "123",
+      name: "Phuoc Thinh",
+      time: "11/6/2024",
+      title: "Post title",
+      content: "abcccccc",
+      images: [
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
+      ],
+      reaction: "123",
+      followStatus: "123",
+    },
   ];
 
   function handleAddLike() {

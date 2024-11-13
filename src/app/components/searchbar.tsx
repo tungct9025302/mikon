@@ -14,7 +14,7 @@ export default function searchbar() {
   const [showResult, setShowResult] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  const ref = useRef(null);
+  const ref: any = useRef(null);
 
   useEffect(() => {
     const handleOutSideClick = (event) => {
