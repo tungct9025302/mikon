@@ -9,6 +9,7 @@ import HeartIcon from "@/app/assets/heart.png";
 import LikeIcon from "@/app/assets/like.png";
 import Like2Icon from "@/app/assets/like2.png";
 import ViewedIcon from "@/app/assets/viewed.png";
+import HashtagIcon from "@/app/assets/hashtag.svg";
 import NotLikeIcon from "@/app/assets/notlike.png";
 
 export default function post() {
@@ -18,39 +19,42 @@ export default function post() {
     {
       avatar: "123",
       name: "Phuoc Thinh",
-      time: "11/6/2024",
+      time: "14/6/2024",
       title: "Post title",
-      content: "abcccccc",
+      content: "Post content",
       images: [
         "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
         "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
       ],
+      tags: ["Black Lives Matter", "123"],
       reaction: "123",
       followStatus: "123",
     },
     {
       avatar: "123",
       name: "Phuoc Thinh",
-      time: "11/6/2024",
+      time: "15/6/2024",
       title: "Post title",
-      content: "abcccccc",
+      content: "Post content",
       images: [
         "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
         "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
       ],
+      tags: ["Black Lives Matter", "Ok"],
       reaction: "123",
       followStatus: "123",
     },
     {
       avatar: "123",
       name: "Phuoc Thinh",
-      time: "11/6/2024",
+      time: "15/6/2024",
       title: "Post title",
-      content: "abcccccc",
+      content: "Post content",
       images: [
         "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
         "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
       ],
+      tags: ["Black Lives Matter", "Ok"],
       reaction: "123",
       followStatus: "123",
     },
@@ -72,9 +76,6 @@ export default function post() {
               alt=""
               className="m-1 rounded-full"
               variant="rounded"
-              //   onClick={() => {
-              //     setSelected(false);
-              //   }}
             />
           </div>
 
@@ -106,8 +107,29 @@ export default function post() {
                 <div key={index} className="">
                   <img
                     src={imageSrc}
-                    className="max-h-[20vh] max-w-[20vw]"
+                    className="max-h-[20vh] max-w-[20vw] rounded-xl"
                   ></img>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-row space-x-4 rounded-xl">
+            {postData["tags"].map((tag, index) => {
+              return (
+                <div
+                  key={index}
+                  className="max-h-[20vh] flex flex-row rounded-xl p-1 bg-[#FAFAFA] whitespace-nowrap space-x-1"
+                >
+                  <Image
+                    src={HashtagIcon}
+                    width={15}
+                    height={15}
+                    alt=""
+                    className=""
+                  ></Image>
+                  <p className="text-[#A6A6FF] font-semibold">{tag}</p>
                 </div>
               );
             })}
