@@ -138,12 +138,12 @@ export default function post() {
           <div className="mt-4 mx-4 flex flex-row justify-between">
             <div className="flex flex-row items-center space-x-1">
               <Image src={ViewedIcon} width={30} height={30} alt=""></Image>
-              <div className="text-slate-500 font-semibold">123</div>
+              <p className="text-slate-500 font-semibold">123</p>
             </div>
             <div className="flex flex-row w-[15vw] justify-between">
               <div className="flex flex-row  items-center">
                 <Image src={CommentIcon} width={40} height={40} alt=""></Image>
-                <div className="text-slate-500 font-semibold">123</div>
+                <p className="text-slate-500 font-semibold">123</p>
               </div>
               <div className="flex flex-row">
                 <div className="flex flex-row items-center space-x-1 mr-2">
@@ -176,7 +176,7 @@ export default function post() {
                         setLiked(!liked);
                       }}
                     ></Image>
-                    <div className="text-slate-500 font-semibold">123</div>
+                    <p className="text-slate-500 font-semibold">123</p>
                   </div>
                 ) : (
                   <div className="flex flex-row items-center space-x-1">
@@ -190,7 +190,7 @@ export default function post() {
                         handleAddLike();
                       }}
                     ></Image>
-                    <div className="text-slate-500 font-semibold">123</div>
+                    <p className="text-slate-500 font-semibold">123</p>
                   </div>
                 )}
               </div>
