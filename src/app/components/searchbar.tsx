@@ -13,6 +13,7 @@ export default function searchbar() {
   const [selected, setSelected] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [filterList, setFilterList] = useState([]);
 
   const ref: any = useRef(null);
 
@@ -30,25 +31,40 @@ export default function searchbar() {
     };
   }, [ref]);
 
-  var samples = ["Honkai Impact", "Genshin Impact", "League Of Legends"];
+  var samples = [
+    {
+      name: "Genshin Impact",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/ac4e7a4f341e7281b0f6f274f9ec3905.png",
+    },
+    {
+      name: "Honkai: Star Rail",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/ec01a34f7fc3b03448cc52f2a89d52e8.png",
+    },
+    {
+      name: "League Of Legends",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/882137f311c5728f8e257e56820af92c.png",
+    },
+  ];
 
-  function generateRow(name) {
+  function generateRow(item, index) {
     return (
       <div
-        key={name}
+        key={index}
         className="flex cursor-pointer w-full border-gray-300 rounded-lg hover:bg-teal-100 h-10 align-center items-center"
         onClick={() => {
-          setSearchValue(name);
+          setSearchValue(item["name"]);
+          setShowResult(false);
         }}
       >
         <div className="flex flex-row relative items-center m-1 mr-2 w-8 h-8 mt-1 rounded-full">
-          <img
-            className="rounded-full"
-            alt="A"
-            src="https://randomuser.me/api/portraits/men/62.jpg"
-          />
+          <img className="rounded-full" alt="" src={item["iconUrl"]} />
 
-          <p className="font-normal pl-2 w-full whitespace-nowrap">{name}</p>
+          <p className="font-normal pl-2 w-full whitespace-nowrap">
+            {item["name"]}
+          </p>
         </div>
       </div>
     );
@@ -111,6 +127,7 @@ export default function searchbar() {
 
           <input
             type="text"
+            id="searchInput"
             className="w-full bg-[#0d1829] flex bg-transparent pl-2 text-black font-medium outline-0 text-md"
             placeholder="What is in your mind"
             value={searchValue}
@@ -154,10 +171,18 @@ export default function searchbar() {
               : "hidden"
           }
         >
-          <div className="flex flex-col w-full">
-            {samples.map((item) => {
-              return generateRow(item);
-            })}
+          <div className="flex flex-col w-full min-h-5">
+            {samples
+              .filter(
+                (item) =>
+                  item["name"]
+                    .toLowerCase()
+                    .startsWith(searchValue.toLowerCase()) &&
+                  searchValue.length != 0
+              )
+              .map((item, index) => {
+                return generateRow(item, index);
+              })}
           </div>
         </div>
       </div>

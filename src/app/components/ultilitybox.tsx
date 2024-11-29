@@ -263,15 +263,25 @@ export default function ultilitybox() {
 
   function renderContactUs() {
     return (
-      <div className="flex flex-col">
-        <div>
-          <p className="text-xl text-slate-400 font-semibold">Contact Us</p>
+      <div className="flex flex-col space-y-5 min-h-[24vh] mx-2">
+        <div className="flex flex-col">
+          <p className="text-xl text-slate-500 font-semibold">Contact Us</p>
+          <p className="text-md text-gray-800">(+84)-0123 456 789</p>
         </div>
-        <div> 123</div>
-        <div> 123</div>
-        <div> 123</div>
-        <div> 123</div>
-        <div> 123</div>
+
+        <div className="flex flex-col">
+          <p className="text-xl text-slate-500 font-semibold">
+            Customer support
+          </p>
+          <p className="text-md text-gray-800">anhhenempickleball@cs.com</p>
+        </div>
+
+        <div className="flex flex-col">
+          <p className="text-xl text-slate-700 font-semibold">Copyright</p>
+          <p className="text-md text-gray-800 font-semibold">
+            © 2024 Single-member limited liability Co.
+          </p>
+        </div>
       </div>
     );
   }
