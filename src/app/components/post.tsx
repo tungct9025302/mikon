@@ -14,7 +14,7 @@ import NotLikeIcon from "@/app/assets/notlike.png";
 import AddIcon from "@/app/assets/Add.svg";
 import FollowedIcon from "@/app/assets/followed.svg";
 
-export default function post() {
+export default function Post() {
   // useEffect(() => {
   //   setLiked(postData["reacted"]);
   // }, []);

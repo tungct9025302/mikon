@@ -9,7 +9,7 @@ import RightArrow from "@/app/assets/right-arrow.svg";
 import BottomArrow from "@/app/assets/bottom-arrow.svg";
 import Image from "next/image";
 
-export default function searchbar() {
+export default function Searchbar() {
   const [selected, setSelected] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [searchValue, setSearchValue] = useState("");

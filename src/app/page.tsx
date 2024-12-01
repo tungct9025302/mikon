@@ -5,7 +5,8 @@ import Image from "next/image";
 import icon from "../app/assets/icon.png";
 import NotificationImg from "../app/assets/notification.png";
 import CreatePostImg from "../app/assets/create-post.svg";
-import { Avatar } from "@material-tailwind/react";
+
+import LoginDropdown from "./components/dropdown";
 import Searchbar from "./components/searchbar";
 import Post from "./components/post";
 import UltilityBox from "./components/ultilitybox";
@@ -90,22 +91,14 @@ export default function homepage() {
           <Searchbar />
         </div>
 
-        <div className="flex flex-row items-center w-[10vw] justify-between">
+        <div className="flex flex-row items-center w-[11vw] justify-between">
           <div className="">
             <Image src={NotificationImg} width={40} height={40} alt=""></Image>
           </div>
-
           <div className="">
             <Image src={CreatePostImg} width={40} height={40} alt=""></Image>
           </div>
-
-          <Avatar
-            src="https://pbs.twimg.com/media/E7-lsfNWEAUfLAW?format=png&name=small"
-            width={50}
-            height={50}
-            alt=""
-            variant="rounded"
-          />
+          <LoginDropdown></LoginDropdown>
         </div>
       </div>
 
