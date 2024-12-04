@@ -23,7 +23,28 @@ export default function ultilitybox() {
   let i = 3;
   const [followed, setFollowed] = useState(false);
 
-  const creatorList = ["test", "test1"];
+  const creatorList = [
+    {
+      name: "Huynh Quang Phuoc Thinh",
+      followerCount: 12.032,
+      category: "Genshin Impact",
+      followedStatus: true,
+      images: [
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+      ],
+    },
+    {
+      name: "User 1",
+      followerCount: 1.059,
+      category: "Honkai Impact",
+      followedStatus: false,
+      images: [
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+      ],
+    },
+  ];
 
   const sampleData = [
     {
@@ -165,13 +186,13 @@ export default function ultilitybox() {
   }
 
   function renderPopularCreatorBox() {
-    function generateCreatorBoxes(item, index) {
+    function generateCreatorBoxes(creator, index) {
       return (
         <div
           key={index}
-          className="flex flex-col hover:bg-sky-50 hover:rounded-2xl m-2 p-1"
+          className="flex flex-col hover:bg-sky-50 hover:rounded-2xl m-2 p-1 space-y-2"
         >
-          <div className="flex flex-row items-start justify-around mx-2 pb-2 items-center">
+          <div className="flex flex-row items-start justify-between mx-2 items-center">
             <div className="flex flex-row">
               <div className="mr-2">
                 <Avatar
@@ -186,12 +207,12 @@ export default function ultilitybox() {
 
               <div className="max-w-[8vw]">
                 <p className="text-xl font-semibold text-black">
-                  Huynh Quang Phuoc Thinh
+                  {creator["name"]}
                 </p>
               </div>
             </div>
 
-            {followed ? (
+            {creator["followedStatus"] ? (
               <div className="flex flex-row space-x-1">
                 <Image
                   src={AddIcon}
@@ -220,13 +241,28 @@ export default function ultilitybox() {
             )}
           </div>
 
-          <div className="flex flex-row px-5 pb-5 justify-around">
+          <div className="flex flex-row space-x-4 overflow-x-scroll">
+            {creator["images"].map((imageSrc, index) => {
+              return (
+                <div key={index} className="max-h-[15vh]">
+                  <img
+                    src={imageSrc}
+                    className="max-h-[15vh] max-w-[20vw] rounded-xl"
+                  ></img>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-row px-5 justify-around">
             <div className="flex flex-row space-x-1">
               <Image src={FollowerIcon} width={20} height={20} alt=""></Image>
-              <p className="text-slate-500 font-semibold">12.032</p>
+              <p className="text-slate-500 font-semibold">
+                {creator["followerCount"]}
+              </p>
             </div>
             <p className="text-black-500 font-semibold text-lg">
-              Genshin Impact
+              {creator["category"]}
             </p>
           </div>
         </div>
@@ -234,7 +270,7 @@ export default function ultilitybox() {
     }
 
     return (
-      <div className="flex flex-col bg-white bg-cover min-h-[24vh] rounded-2xl space-y-2 border-2 max-w-[20vw]  pb-5">
+      <div className="flex flex-col bg-white bg-cover min-h-[24vh] rounded-2xl space-y-2 border-2 max-w-[20vw] pb-2">
         <div className="flex flex-row justify-between m-5">
           <p className="text-xl font-semibold font-mono">Popular Creators</p>
         </div>

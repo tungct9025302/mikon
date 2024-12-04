@@ -9,12 +9,13 @@ import HeartIcon from "@/app/assets/heart.png";
 import LikeIcon from "@/app/assets/like.png";
 import Like2Icon from "@/app/assets/like2.png";
 import ViewedIcon from "@/app/assets/viewed.png";
+import HashtagIconWhite from "@/app/assets/hashtag-white.svg";
 import HashtagIcon from "@/app/assets/hashtag.svg";
 import NotLikeIcon from "@/app/assets/notlike.png";
 import AddIcon from "@/app/assets/Add.svg";
 import FollowedIcon from "@/app/assets/followed.svg";
 
-export default function Post() {
+export default function post() {
   // useEffect(() => {
   //   setLiked(postData["reacted"]);
   // }, []);
@@ -82,6 +83,25 @@ export default function Post() {
       followedStatus: true,
       category: "Genshin Impact",
     },
+    // {
+    //   postID: 25,
+    //   avatar: "123",
+    //   name: "Phuoc Thinh",
+    //   time: "15/6/2024",
+    //   title: "Post title",
+    //   content: "Post content",
+    //   images: [
+    //     "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+    //     "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
+    //   ],
+    //   tags: ["Black Lives Matter", "Ok"],
+    //   viewCount: 24,
+    //   reactionCount: 12,
+    //   commentCount: 1,
+    //   reacted: false,
+    //   followedStatus: true,
+    //   category: "Genshin Impact",
+    // },
   ];
 
   function handleAddReaction(requestedPostID) {
@@ -116,8 +136,8 @@ export default function Post() {
         key={index}
         className={
           index + 1 == postSamples.length
-            ? `p-5 flex flex-col`
-            : `p-5 flex flex-col border-b`
+            ? `p-5 flex flex-col max-h-[50vh]`
+            : `p-5 flex flex-col border-b max-h-[50vh]`
         }
       >
         <div className="flex flex-row justify-between">
@@ -210,16 +230,28 @@ export default function Post() {
               return (
                 <div
                   key={index}
-                  className="max-h-[20vh] flex flex-row rounded-xl p-1 bg-[#FAFAFA] whitespace-nowrap space-x-1"
+                  className="group/tag max-h-[20vh] flex flex-row rounded-xl 
+                  p-1 bg-[#FAFAFA] whitespace-nowrap space-x-1 hover:bg-[#B5C1FF]"
                 >
                   <Image
                     src={HashtagIcon}
                     width={15}
                     height={15}
                     alt=""
-                    className=""
+                    className="group-hover/tag:hidden"
                   ></Image>
-                  <p className="text-[#A6A6FF] font-semibold">{tag}</p>
+
+                  <Image
+                    src={HashtagIconWhite}
+                    width={15}
+                    height={15}
+                    alt=""
+                    className="hidden group-hover/tag:block"
+                  ></Image>
+
+                  <p className="text-[#A6A6FF] font-semibold group-hover/tag:text-white ">
+                    {tag}
+                  </p>
                 </div>
               );
             })}
