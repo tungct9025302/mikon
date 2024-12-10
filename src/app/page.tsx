@@ -1,17 +1,20 @@
 "use client";
 import { useState } from "react";
+// import { useRouter } from "next/router";
+import Link from "next/link";
 
 import Image from "next/image";
-import icon from "../app/assets/icon.png";
-import NotificationImg from "../app/assets/notification.png";
-import CreatePostImg from "../app/assets/create-post.svg";
+import icon from "@/assets/icon.png";
+import NotificationImg from "@/assets/notification.png";
+import CreatePostImg from "@/assets/create-post.svg";
 
-import LoginDropdown from "./components/dropdown";
-import Searchbar from "./components/searchbar";
-import Post from "./components/post";
-import UltilityBox from "./components/ultilitybox";
+import LoginDropdown from "@/components/Dropdown";
+import Searchbar from "@/components/Searchbar";
+import Post from "@/components/Post";
+import UltilityBox from "@/components/Ultilitybox";
 
 export default function homepage() {
+  // const router = useRouter();
   const [tab, setTab] = useState(0);
   const [postType, setPostType] = useState(0);
   let postTypes = [
@@ -95,14 +98,16 @@ export default function homepage() {
           <div className="">
             <Image src={NotificationImg} width={40} height={40} alt=""></Image>
           </div>
-          <div className="">
-            <Image src={CreatePostImg} width={40} height={40} alt=""></Image>
+          <div className="" onClick={() => {}}>
+            <Link href="/create-post">
+              <Image src={CreatePostImg} width={40} height={40} alt=""></Image>
+            </Link>
           </div>
           <LoginDropdown></LoginDropdown>
         </div>
       </div>
 
-      <div className="bg-[#F5F6F7] h-full flex flex-row justify-center pt-6">
+      <div className="bg-[#F5F6F7] h-screen flex flex-row justify-center pt-6">
         <div className="min-w-[50vw] bg-[#FFFFFF] rounded-2xl mr-10 h-fit">
           <div className="flex flex-col">
             <div className="flex flex-row min-h-[8vh] items-center space-x-10 pl-8">

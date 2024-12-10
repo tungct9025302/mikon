@@ -4,20 +4,20 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Avatar } from "@material-tailwind/react";
 
-import LoginIcon from "@/app/assets/login_icon.png";
-import DraftIcon from "@/app/assets/draft_icon.svg";
-import FollowerIcon from "@/app/assets/follower.svg";
+import LoginIcon from "@/assets/login_icon.png";
+import DraftIcon from "@/assets/draft_icon.svg";
+import FollowerIcon from "@/assets/follower.svg";
 
-import CreatePostCircle from "@/app/assets/create-post-circle.svg";
-import ImagePostCircle from "@/app/assets/image-post-circle.svg";
-import VideoPostCircle from "@/app/assets/video-post-circle.svg";
+import CreatePostCircle from "@/assets/create-post-circle.svg";
+import ImagePostCircle from "@/assets/image-post-circle.svg";
+import VideoPostCircle from "@/assets/video-post-circle.svg";
 
-import AddIcon from "@/app/assets/Add.svg";
-import FollowedIcon from "@/app/assets/followed.svg";
+import AddIcon from "@/assets/Add.svg";
+import FollowedIcon from "@/assets/followed.svg";
 
-import GoldenMedal from "@/app/assets/golden-medal.svg";
-import SilverMedal from "@/app/assets/silver-medal.svg";
-import BronzeMedal from "@/app/assets/bronze-medal.svg";
+import GoldenMedal from "@/assets/golden-medal.svg";
+import SilverMedal from "@/assets/silver-medal.svg";
+import BronzeMedal from "@/assets/bronze-medal.svg";
 
 export default function ultilitybox() {
   let i = 3;
@@ -96,7 +96,7 @@ export default function ultilitybox() {
     return (
       <div
         key={index}
-        className="flex flex-row items-start justify-around mx-2 mb-2 items-center text-center"
+        className="flex flex-row items-start justify-between mx-5 mb-2 items-center text-center"
       >
         <div className="flex flex-row space-between">
           <div className="flex flex-row items-center">

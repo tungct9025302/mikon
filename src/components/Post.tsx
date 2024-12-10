@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@material-tailwind/react";
 import Image from "next/image";
-import YoimiyaIcon from "@/app/assets/yoimiya.png";
+import YoimiyaIcon from "@/assets/yoimiya.png";
 
 //import icons
-import CommentIcon from "@/app/assets/comment-icon.svg";
-import HeartIcon from "@/app/assets/heart.png";
-import LikeIcon from "@/app/assets/like.png";
-import Like2Icon from "@/app/assets/like2.png";
-import ViewedIcon from "@/app/assets/viewed.png";
-import HashtagIconWhite from "@/app/assets/hashtag-white.svg";
-import HashtagIcon from "@/app/assets/hashtag.svg";
-import NotLikeIcon from "@/app/assets/notlike.png";
-import AddIcon from "@/app/assets/Add.svg";
-import FollowedIcon from "@/app/assets/followed.svg";
+import CommentIcon from "@/assets/comment-icon.svg";
+import HeartIcon from "@/assets/heart.png";
+import LikeIcon from "@/assets/like.png";
+import Like2Icon from "@/assets/like2.png";
+import ViewedIcon from "@/assets/viewed.png";
+import HashtagIconWhite from "@/assets/hashtag-white.svg";
+import HashtagIcon from "@/assets/hashtag.svg";
+import NotLikeIcon from "@/assets/notlike.png";
+import AddIcon from "@/assets/Add.svg";
+import FollowedIcon from "@/assets/followed.svg";
 
 export default function post() {
   // useEffect(() => {

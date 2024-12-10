@@ -4,9 +4,9 @@ import React from "react";
 import { useState } from "react";
 import { useRef, useEffect } from "react";
 import { Avatar } from "@material-tailwind/react";
-import MenuIcon from "@/app/assets/menu.svg";
-import RightArrow from "@/app/assets/right-arrow.svg";
-import BottomArrow from "@/app/assets/bottom-arrow.svg";
+import MenuIcon from "@/assets/menu.svg";
+import RightArrow from "@/assets/right-arrow.svg";
+import BottomArrow from "@/assets/bottom-arrow.svg";
 import Image from "next/image";
 
 export default function searchbar() {

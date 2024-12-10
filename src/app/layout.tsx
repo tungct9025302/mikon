@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PrelineScript from "./components/PrelineScript";
+import PrelineScript from "../components/PrelineScript";
 import "./globals.css";
 
 export const metadata: Metadata = {};
