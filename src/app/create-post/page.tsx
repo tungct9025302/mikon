@@ -17,8 +17,9 @@ import StrikethroughIcon from "@/assets/strikethrough.svg";
 import FontsizeIcon from "@/assets/fontsize.svg";
 import TextalignIcon from "@/assets/text-align.svg";
 import NumberlistIcon from "@/assets/number-list.svg";
+import HeaderIcon from "@/assets/header.svg";
 
-import LoginDropdown from "@/components/Dropdown";
+import LoginDropdown from "@/components/Dropdowns/LoginDropdown";
 import Searchbar from "@/components/Searchbar";
 import Post from "@/components/Post";
 import UltilityBox from "@/components/Ultilitybox";
@@ -56,7 +57,7 @@ export default function createpost() {
     return (
       <div className="flex flex-col mx-10 my-5 space-y-2">
         <p className="text-lg text-gray-800 font-semibold">Post Cover</p>
-        <div className="flex flex-row rounded-lg rounded-full bg-[#FDFDFD] w-fit py-2 px-5 border-[#CACACA] border-2 space-x-2">
+        <div className="flex flex-row rounded-lg rounded-full bg-[#FDFDFD] w-fit py-2 px-5 border-[#CACACA] border-2 space-x-2 cursor-pointer">
           <Image src={CoverIcon} width={30} height={30} alt=""></Image>
           <p className="text-lg text-gray-800 font-semibold">Add Cover</p>
         </div>
@@ -81,7 +82,7 @@ export default function createpost() {
               <input
                 type="text"
                 id="first_name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
                 placeholder="Fill in a title"
                 required
               />
@@ -116,12 +117,13 @@ export default function createpost() {
             <Image src={TextColorIcon} width={30} height={30} alt=""></Image>
             <Image src={NumberlistIcon} width={30} height={30} alt=""></Image>
             <Image src={TextalignIcon} width={30} height={30} alt=""></Image>
+            <Image src={HeaderIcon} width={50} height={50} alt=""></Image>
           </div>
           <div className="my-2 mx-5">
             <input
               type="text"
               id="first_name"
-              className="w-full h-full"
+              className="w-full h-full outline-0"
               placeholder="Enter your text here"
               required
             />
@@ -139,7 +141,7 @@ export default function createpost() {
           <div>
             <Image src={icon} width={200} height={50} alt=""></Image>
           </div>
-          <div
+          {/* <div
             className="text-zinc-400 group/home cursor-pointer"
             onClick={() => {
               setTab(0);
@@ -172,7 +174,7 @@ export default function createpost() {
                   : "w-[50%] max-w-[20px] border-b-4 border-sky-600 m-auto group-hover/categories:visible invisible group-hover/categories:home"
               }
             ></div>
-          </div>
+          </div> */}
         </div>
 
         <div className="w-[26vw] items-center">

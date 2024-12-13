@@ -60,7 +60,7 @@ export default function dropdown() {
     <div className="hs-dropdown relative inline-flex">
       <Avatar
         id="hs-dropdown-custom-trigger"
-        type="button"
+        // type="button"
         className="hs-dropdown-toggle inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
         aria-haspopup="menu"
         aria-expanded="false"
@@ -70,8 +70,10 @@ export default function dropdown() {
         height={50}
         alt=""
         variant="rounded"
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
       />
-
       <div
         className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
         role="menu"

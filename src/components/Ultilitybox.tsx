@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Avatar } from "@material-tailwind/react";
 
 import LoginIcon from "@/assets/login_icon.png";
@@ -122,6 +123,9 @@ export default function ultilitybox() {
                 alt=""
                 className="m-1 rounded-full"
                 variant="rounded"
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
               />
             </div>
           </div>
@@ -169,16 +173,44 @@ export default function ultilitybox() {
 
         <div className="flex flex-row justify-evenly w-full min-h-[12vh] place-items-center">
           <div className="flex flex-col items-center">
-            <Image src={CreatePostCircle} width={60} height={60} alt=""></Image>
-            <p className="font-medium text-lg">Post</p>
+            <Link href="/create-post">
+              <Image
+                src={CreatePostCircle}
+                width={60}
+                height={60}
+                alt=""
+              ></Image>
+              <div className="text-center">
+                <p className="font-medium text-lg">Post</p>
+              </div>
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <Link href="/create-post">
+              <Image
+                src={ImagePostCircle}
+                width={60}
+                height={60}
+                alt=""
+              ></Image>
+              <div className="text-center">
+                <p className="font-medium text-lg">Image</p>
+              </div>
+            </Link>
           </div>
           <div className="flex flex-col items-center">
-            <Image src={ImagePostCircle} width={60} height={60} alt=""></Image>
-            <p className="font-medium text-lg">Image</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <Image src={VideoPostCircle} width={60} height={60} alt=""></Image>
-            <p className="font-medium text-lg">Video</p>
+            <Link href="/create-post">
+              <Image
+                src={VideoPostCircle}
+                width={60}
+                height={60}
+                alt=""
+              ></Image>
+              <div className="text-center">
+                <p className="font-medium text-lg">Video</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -202,6 +234,9 @@ export default function ultilitybox() {
                   alt=""
                   className="m-1 rounded-full"
                   variant="rounded"
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
                 />
               </div>
 

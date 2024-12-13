@@ -88,6 +88,9 @@ export default function searchbar() {
               onClick={() => {
                 setSelected(false);
               }}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
             />
           ) : (
             <Image
@@ -127,7 +130,7 @@ export default function searchbar() {
           <input
             type="text"
             id="searchInput"
-            className="w-full bg-[#0d1829] flex bg-transparent pl-2 text-black font-medium outline-0 text-md"
+            className="w-full bg-[#0d1829] flex bg-transparent pl-2 text-black font-medium outline-0 text-md outline-0 border-0"
             placeholder="What is in your mind"
             value={searchValue}
             onChange={(event) => handleInputChange(event)}
