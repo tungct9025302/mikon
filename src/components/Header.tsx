@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import icon from "@/assets/icon.png";
-import NotificationImg from "@/assets/notification.png";
 import CreatePostImg from "@/assets/create-post.svg";
 
 import LoginDropdown from "@/components/Dropdowns/LoginDropdown";
@@ -13,6 +12,13 @@ import Searchbar from "@/components/Searchbar";
 
 export default function Header() {
   const [tab, setTab] = useState(0);
+  const newsContentList = [
+    { type: "message" },
+    { type: "followed" },
+    { type: "reaction" },
+    { type: "comment" },
+    { type: "following" },
+  ];
   return (
     <div className="flex flex-row px-10 font-bold text-[1.2em] items-center justify-between h-[8vh] bg-[#fdfcfc]">
       <div className="flex flex-row space-x-16 items-center">
@@ -60,7 +66,9 @@ export default function Header() {
       </div>
 
       <div className="flex flex-row items-center w-[11vw] justify-between">
-        <NotificationDropdown></NotificationDropdown>
+        <NotificationDropdown
+          newsContent={newsContentList}
+        ></NotificationDropdown>
         <div className="" onClick={() => {}}>
           <Link href="/create-post">
             <Image src={CreatePostImg} width={40} height={40} alt=""></Image>
