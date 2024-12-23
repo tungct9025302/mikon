@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import Post from "@/components/Post";
 import UltilityBox from "@/components/Ultilitybox";
 import Header from "@/components/Header";
 
 export default function homepage() {
-  // const router = useRouter();
-
   const [postType, setPostType] = useState(0);
   let postTypes = [
     { name: "Recommended" },
@@ -42,7 +40,7 @@ export default function homepage() {
 
   return (
     <div className="flex flex-col">
-      <Header></Header>
+      <Header accessed={false}></Header>
       <div className="bg-[#F5F6F7] h-full flex flex-row justify-center pt-6">
         <div className="min-w-[50vw] bg-[#FFFFFF] rounded-2xl mr-10 h-fit">
           <div className="flex flex-col">

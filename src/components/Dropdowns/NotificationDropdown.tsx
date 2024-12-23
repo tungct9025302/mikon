@@ -27,7 +27,7 @@ export default function NotificationDropdown({ newsContent }) {
         <div
           className={
             updated
-              ? "hidden"
+              ? "hiddenaw"
               : "absolute block w-4 h-4 bg-red-500 border-2 border-white rounded-full -bottom-0.5 start-7 dark:border-gray-900"
           }
         ></div>
@@ -58,6 +58,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+          key={item}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -99,6 +100,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+          key={item}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -143,6 +145,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+          key={item}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -186,6 +189,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+          key={item}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -227,6 +231,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+          key={item}
         >
           <div className="flex-shrink-0">
             <Avatar

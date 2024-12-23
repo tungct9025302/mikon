@@ -1,5 +1,6 @@
 "use client;";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +11,8 @@ import LoginDropdown from "@/components/Dropdowns/LoginDropdown";
 import NotificationDropdown from "./Dropdowns/NotificationDropdown";
 import Searchbar from "@/components/Searchbar";
 
-export default function Header() {
+export default function Header({ accessed }) {
+  const router = useRouter();
   const [tab, setTab] = useState(0);
   const newsContentList = [
     { type: "message" },
@@ -65,17 +67,33 @@ export default function Header() {
         <Searchbar />
       </div>
 
-      <div className="flex flex-row items-center w-[11vw] justify-between">
-        <NotificationDropdown
-          newsContent={newsContentList}
-        ></NotificationDropdown>
-        <div className="" onClick={() => {}}>
-          <Link href="/create-post">
-            <Image src={CreatePostImg} width={40} height={40} alt=""></Image>
-          </Link>
+      {accessed ? (
+        <div className="flex flex-row items-center space-x-8 w-[fit] justify-between">
+          <NotificationDropdown
+            newsContent={newsContentList}
+          ></NotificationDropdown>
+          <LoginDropdown></LoginDropdown>
         </div>
-        <LoginDropdown></LoginDropdown>
-      </div>
+      ) : (
+        <div className="flex flex-row items-center space-x-8 w-[fit] justify-between">
+          <NotificationDropdown
+            newsContent={newsContentList}
+          ></NotificationDropdown>
+
+          <Image
+            className="cursor-pointer"
+            src={CreatePostImg}
+            width={40}
+            height={40}
+            alt=""
+            onClick={() => {
+              router.push("/create-post");
+            }}
+          ></Image>
+
+          <LoginDropdown></LoginDropdown>
+        </div>
+      )}
     </div>
   );
 }
