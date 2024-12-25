@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { Avatar } from "@material-tailwind/react";
+import { useRouter } from "next/navigation";
 
 export default function dropdown() {
   const [logged, setLogged] = useState(true);
+  const router = useRouter();
 
   function checkLogged() {
     return logged ? (
@@ -73,6 +75,9 @@ export default function dropdown() {
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
+        onClick={() => {
+          router.push("/login");
+        }}
       />
       <div
         className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"

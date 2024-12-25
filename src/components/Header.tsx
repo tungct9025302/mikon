@@ -24,7 +24,7 @@ export default function Header({ accessed }) {
   return (
     <div className="flex flex-row px-10 font-bold text-[1.2em] items-center justify-between h-[8vh] bg-[#fdfcfc]">
       <div className="flex flex-row space-x-16 items-center">
-        <div>
+        <div className="cursor-pointer" onClick={() => router.push("/")}>
           <Image src={icon} width={200} height={50} alt=""></Image>
         </div>
         <div

@@ -40,7 +40,7 @@ export default function NotificationDropdown({ newsContent }) {
         aria-labelledby="hs-dropdown-with-title"
       >
         <div className="p-1 space-y-0.5">
-          <div className="divide-y divide-gray-100 dark:divide-gray-700">
+          <div className="divide-y divide-gray-100 dark:divide-gray-700 max-w-[500px]">
             {newsContent.map((item) => {
               return renderPostPerItem(item);
             })}
@@ -57,7 +57,7 @@ function renderPostPerItem(item) {
       return (
         <a
           href="#"
-          className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 "
           key={item}
         >
           <div className="flex-shrink-0">
@@ -67,6 +67,9 @@ function renderPostPerItem(item) {
               alt="Jese image"
               height={50}
               width={50}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
             />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
               <svg
@@ -109,6 +112,9 @@ function renderPostPerItem(item) {
               alt="Jese image"
               height={50}
               width={50}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
             />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-gray-900 border border-white rounded-full dark:border-gray-800">
               <svg
@@ -126,11 +132,11 @@ function renderPostPerItem(item) {
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
                 Joseph Mcfall
-              </span>{" "}
-              and{" "}
+              </span>
+              and
               <span className="font-medium text-gray-900 dark:text-white">
                 5 others
-              </span>{" "}
+              </span>
               started following you.
             </div>
             <div className="text-xs text-blue-600 dark:text-blue-500">
@@ -154,7 +160,10 @@ function renderPostPerItem(item) {
               alt="Jese image"
               height={50}
               width={50}
-            />{" "}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-red-600 border border-white rounded-full dark:border-gray-800">
               <svg
                 className="w-2 h-2 text-white"
@@ -171,11 +180,11 @@ function renderPostPerItem(item) {
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
                 Bonnie Green
-              </span>{" "}
-              and{" "}
+              </span>
+              and
               <span className="font-medium text-gray-900 dark:text-white">
                 141 others
-              </span>{" "}
+              </span>
               love your story. See it and view more stories.
             </div>
             <div className="text-xs text-blue-600 dark:text-blue-500">
@@ -198,7 +207,10 @@ function renderPostPerItem(item) {
               alt="Jese image"
               height={50}
               width={50}
-            />{" "}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-green-400 border border-white rounded-full dark:border-gray-800">
               <svg
                 className="w-2 h-2 text-white"
@@ -215,9 +227,9 @@ function renderPostPerItem(item) {
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
                 Leslie Livingston
-              </span>{" "}
-              mentioned you in a comment:{" "}
-              <span className="font-medium text-blue-500">@bonnie.green</span>{" "}
+              </span>
+              mentioned you in a comment:
+              <span className="font-medium text-blue-500">@bonnie.green</span>
               what do you say?
             </div>
             <div className="text-xs text-blue-600 dark:text-blue-500">
@@ -240,7 +252,10 @@ function renderPostPerItem(item) {
               alt="Jese image"
               height={50}
               width={50}
-            />{" "}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-purple-500 border border-white rounded-full dark:border-gray-800">
               <svg
                 className="w-2 h-2 text-white"
@@ -257,7 +272,7 @@ function renderPostPerItem(item) {
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
                 Robert Brown
-              </span>{" "}
+              </span>
               posted a new video: Glassmorphism - learn how to implement the new
               design trend.
             </div>

@@ -68,7 +68,7 @@ export default function createpost() {
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
               <label
-                htmlFor="first_name"
+                // htmlFor="first_name"
                 className="block mb-2 text-lg text-gray-800 font-semibold dark:text-white"
               >
                 Title
