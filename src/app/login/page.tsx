@@ -12,8 +12,12 @@ export default function login() {
       <div className="bg-[#F5F6F7] justify-center">
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to be a Mikon
+            <h2 className="mt-6 justify-center text-3xl font-extrabold text-gray-900 flex flex-row space-x-2">
+              <p> Sign in to be a</p>
+
+              <p className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+                Mikon
+              </p>
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600 max-w">
               Or{" "}

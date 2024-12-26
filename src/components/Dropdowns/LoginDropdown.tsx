@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Avatar } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
+import NonUserIcon from "@/assets/non-user-icon.png";
 
 export default function dropdown() {
   const [logged, setLogged] = useState(true);
@@ -10,9 +11,9 @@ export default function dropdown() {
 
   function checkLogged() {
     return logged ? (
-      <a
+      <div
+        onClick={() => setLogged(false)}
         className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-        href="#"
       >
         <svg
           className="shrink-0 size-4"
@@ -31,11 +32,13 @@ export default function dropdown() {
           <line x1="12" x2="12" y1="7" y2="13" />
         </svg>
         Log out
-      </a>
+      </div>
     ) : (
-      <a
+      <div
         className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-        href="#"
+        onClick={() => {
+          router.push("/login");
+        }}
       >
         <svg
           className="shrink-0 size-4"
@@ -54,7 +57,7 @@ export default function dropdown() {
           <line x1="12" x2="12" y1="7" y2="13" />
         </svg>
         Log in
-      </a>
+      </div>
     );
   }
 
@@ -67,7 +70,11 @@ export default function dropdown() {
         aria-haspopup="menu"
         aria-expanded="false"
         aria-label="Dropdown"
-        src="https://pbs.twimg.com/media/E7-lsfNWEAUfLAW?format=png&name=small"
+        src={
+          logged
+            ? "https://pbs.twimg.com/media/E7-lsfNWEAUfLAW?format=png&name=small"
+            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcc4nyNTsholBLm7yAY3ttTYPgYupVYr6FyQQ7grBOFr9IsaQw3PgxQ_OELpPQq2wNB70&usqp=CAU"
+        }
         width={50}
         height={50}
         alt=""
@@ -75,9 +82,9 @@ export default function dropdown() {
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
-        onClick={() => {
-          router.push("/login");
-        }}
+        // onClick={() => {
+        //   router.push("/login");
+        // }}
       />
       <div
         className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"

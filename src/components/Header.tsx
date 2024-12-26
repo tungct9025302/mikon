@@ -86,9 +86,6 @@ export default function Header({ accessed }) {
             width={40}
             height={40}
             alt=""
-            onClick={() => {
-              router.push("/create-post");
-            }}
           ></Image>
 
           <LoginDropdown></LoginDropdown>
