@@ -11,9 +11,10 @@ import LoginDropdown from "@/components/Dropdowns/LoginDropdown";
 import NotificationDropdown from "./Dropdowns/NotificationDropdown";
 import Searchbar from "@/components/Searchbar";
 
-export default function Header({ accessed }) {
+export default function Header({ accessedCreate, accessedSearch }) {
   const router = useRouter();
   const [tab, setTab] = useState(0);
+  const [updated, setUpdated] = useState(false);
   const newsContentList = [
     { type: "message" },
     { type: "followed" },
@@ -64,10 +65,10 @@ export default function Header({ accessed }) {
       </div>
 
       <div className="w-[26vw] items-center">
-        <Searchbar />
+        <Searchbar accessedSearch={accessedSearch} />
       </div>
 
-      {accessed ? (
+      {accessedCreate ? (
         <div className="flex flex-row items-center space-x-8 w-[fit] justify-between">
           <NotificationDropdown
             newsContent={newsContentList}
@@ -86,6 +87,7 @@ export default function Header({ accessed }) {
             width={40}
             height={40}
             alt=""
+            onClick={() => router.push("/create-post")}
           ></Image>
 
           <LoginDropdown></LoginDropdown>

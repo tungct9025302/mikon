@@ -130,7 +130,7 @@ export default function createpost() {
 
   return (
     <div className="flex flex-col">
-      <Header accessed={true}></Header>
+      <Header accessedCreate={false} accessedSearch={false}></Header>
 
       <div className="bg-[#F5F6F7] h-screen flex flex-row justify-center pt-6">
         <div className="min-w-[60vw] bg-[#FFFFFF] rounded-2xl mr-10 h-fit">

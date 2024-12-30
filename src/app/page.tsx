@@ -40,7 +40,7 @@ export default function homepage() {
 
   return (
     <div className="flex flex-col">
-      <Header accessed={false}></Header>
+      <Header accessedCreate={false} accessedSearch={false}></Header>
       <div className="bg-[#F5F6F7] h-full flex flex-row justify-center pt-6">
         <div className="min-w-[50vw] bg-[#FFFFFF] rounded-2xl mr-10 h-fit">
           <div className="flex flex-col">

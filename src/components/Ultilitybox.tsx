@@ -103,32 +103,24 @@ export default function ultilitybox() {
           <div className="flex flex-row items-center">
             {defineMedal(index)}
             <div className="mr-2">
-              {/* <Avatar
-        src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da848a8d238bd4e05684e3faf4d4"
-        width={60}
-        height={60}
-        alt=""
-        className="m-1 rounded-full"
-        variant="rounded"
-      /> */}
               <p className="text-lg font-semibold text-black">
                 {item.gameName}
               </p>
             </div>
-            <div className="max-w-[10vw]">
-              <Avatar
-                src={item["gameIconUrl"]}
-                width={40}
-                height={40}
-                alt=""
-                className="m-1 rounded-full"
-                variant="rounded"
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            </div>
           </div>
+        </div>
+        <div className="max-w-[10vw]">
+          <Avatar
+            src={item["gameIconUrl"]}
+            width={40}
+            height={40}
+            alt=""
+            className="m-1 rounded-full"
+            variant="rounded"
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
         </div>
         <div>
           <p className="text-slate-500 font-semibold">

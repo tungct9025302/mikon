@@ -8,13 +8,15 @@ import MenuIcon from "@/assets/menu.svg";
 import RightArrow from "@/assets/right-arrow.svg";
 import BottomArrow from "@/assets/bottom-arrow.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-export default function searchbar() {
+export default function searchbar({ accessedSearch }) {
   const [selected, setSelected] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const ref: any = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleOutSideClick = (event) => {
@@ -45,6 +47,21 @@ export default function searchbar() {
       name: "League Of Legends",
       iconUrl:
         "https://cdn2.steamgriddb.com/icon_thumb/882137f311c5728f8e257e56820af92c.png",
+    },
+    {
+      name: "Darksouls",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/41861df08084b5a2b292dc2e106faa2c.png",
+    },
+    {
+      name: "Strinova",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/logo_thumb/1c31b8e34f89e0aa7823024ca0d9aa01.png",
+    },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
     },
   ];
 
@@ -138,7 +155,21 @@ export default function searchbar() {
               setShowResult(true);
             }}
           />
-          <button type="submit" className="relative p-2  rounded-full">
+          <button
+            type="submit"
+            className="relative p-2  rounded-full"
+            onClick={() => {
+              accessedSearch
+                ? router.push(
+                    searchValue ? `result=${searchValue}` : `result=?`
+                  )
+                : router.push(
+                    searchValue
+                      ? `search/result=${searchValue}`
+                      : `search/result=?`
+                  );
+            }}
+          >
             <svg
               width="30px"
               height="30px"

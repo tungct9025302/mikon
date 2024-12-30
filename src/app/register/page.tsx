@@ -21,15 +21,6 @@ export default function register() {
                 Mikon
               </p>
             </h2>
-            {/* <p className="mt-2 text-center text-sm text-gray-600 max-w">
-              Or{" "}
-              <a
-                href="#"
-                className="font-medium text-blue-600 hover:text-blue-500"
-              >
-                Register
-              </a>
-            </p> */}
           </div>
 
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

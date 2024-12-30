@@ -41,8 +41,8 @@ export default function NotificationDropdown({ newsContent }) {
       >
         <div className="p-1 space-y-0.5">
           <div className="divide-y divide-gray-100 dark:divide-gray-700 max-w-[500px]">
-            {newsContent.map((item) => {
-              return renderPostPerItem(item);
+            {newsContent.map((item, index) => {
+              return renderPostPerItem(item, index);
             })}
           </div>
         </div>
@@ -51,14 +51,14 @@ export default function NotificationDropdown({ newsContent }) {
   );
 }
 
-function renderPostPerItem(item) {
+function renderPostPerItem(item, index) {
   switch (item["type"]) {
     case "message":
       return (
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 "
-          key={item}
+          key={index}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -86,12 +86,13 @@ function renderPostPerItem(item) {
           </div>
           <div className="w-full ps-3">
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-              New message from
+              New message from{" "}
               <span className="font-semibold text-gray-900 dark:text-white">
                 Jese Leos
               </span>
               : "Hey, what's up? All set for the presentation?"
             </div>
+
             <div className="text-xs text-blue-600 dark:text-blue-500">
               a few moments ago
             </div>
@@ -103,7 +104,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
-          key={item}
+          key={index}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -131,11 +132,11 @@ function renderPostPerItem(item) {
           <div className="w-full ps-3">
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
-                Joseph Mcfall
+                Joseph Mcfall{" "}
               </span>
-              and
+              and{" "}
               <span className="font-medium text-gray-900 dark:text-white">
-                5 others
+                5 others{" "}
               </span>
               started following you.
             </div>
@@ -151,7 +152,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
-          key={item}
+          key={index}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -179,13 +180,13 @@ function renderPostPerItem(item) {
           <div className="w-full ps-3">
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
-                Bonnie Green
+                Bonnie Green{" "}
               </span>
-              and
+              and{" "}
               <span className="font-medium text-gray-900 dark:text-white">
-                141 others
+                141 others{" "}
               </span>
-              love your story. See it and view more stories.
+              love your story. See it and view more stories.{" "}
             </div>
             <div className="text-xs text-blue-600 dark:text-blue-500">
               44 minutes ago
@@ -198,7 +199,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
-          key={item}
+          key={index}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -226,11 +227,11 @@ function renderPostPerItem(item) {
           <div className="w-full ps-3">
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
-                Leslie Livingston
+                Leslie Livingston{" "}
               </span>
-              mentioned you in a comment:
-              <span className="font-medium text-blue-500">@bonnie.green</span>
-              what do you say?
+              mentioned you in a comment:{" "}
+              <span className="font-medium text-blue-500">@bonnie.green </span>
+              what do you say?{" "}
             </div>
             <div className="text-xs text-blue-600 dark:text-blue-500">
               1 hour ago
@@ -243,7 +244,7 @@ function renderPostPerItem(item) {
         <a
           href="#"
           className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
-          key={item}
+          key={index}
         >
           <div className="flex-shrink-0">
             <Avatar
@@ -271,13 +272,13 @@ function renderPostPerItem(item) {
           <div className="w-full ps-3">
             <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
               <span className="font-semibold text-gray-900 dark:text-white">
-                Robert Brown
+                Robert Brown{" "}
               </span>
               posted a new video: Glassmorphism - learn how to implement the new
-              design trend.
+              design trend.{" "}
             </div>
             <div className="text-xs text-blue-600 dark:text-blue-500">
-              3 hours ago
+              3 hours ago{" "}
             </div>
           </div>
         </a>
