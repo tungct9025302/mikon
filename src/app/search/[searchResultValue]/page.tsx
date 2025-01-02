@@ -132,9 +132,7 @@ export default function SearchValue() {
     return (
       <div className="flex flex-col bg-white bg-cover min-h-[24vh] h-fit rounded-2xl border-2 min-w-[60vw]">
         <div className="flex flex-row justify-between p-5 border-b">
-          <p className="text-xl font-semibold font-mono">
-            Search result for: {decodedValue}
-          </p>
+          <p className="text-xl font-semibold font-mono">Search result:</p>
         </div>
         {/* 1 */}
 

@@ -73,6 +73,11 @@ export default function searchbar({ accessedSearch }) {
         onClick={() => {
           setSearchValue(item["name"]);
           setShowResult(false);
+          accessedSearch
+            ? router.push(searchValue ? `result=${searchValue}` : `result=?`)
+            : router.push(
+                searchValue ? `search/result=${searchValue}` : `search/result=?`
+              );
         }}
       >
         <div className="flex flex-row relative items-center m-1 mr-2 w-8 h-8 mt-1 rounded-full">
@@ -89,6 +94,8 @@ export default function searchbar({ accessedSearch }) {
   const handleInputChange = (event) => {
     setSearchValue(event.target.value);
   };
+
+  function routing() {}
 
   return (
     <div className="flex items-center justify-center min-h-screen">

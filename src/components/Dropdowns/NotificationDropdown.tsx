@@ -27,7 +27,7 @@ export default function NotificationDropdown({ newsContent }) {
         <div
           className={
             updated
-              ? "hiddenaw"
+              ? "hidden"
               : "absolute block w-4 h-4 bg-red-500 border-2 border-white rounded-full -bottom-0.5 start-7 dark:border-gray-900"
           }
         ></div>
