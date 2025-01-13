@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 
 import icon from "@/assets/icon.png";
 import CreatePostImg from "@/assets/create-post.svg";
@@ -10,6 +9,7 @@ import CreatePostImg from "@/assets/create-post.svg";
 import LoginDropdown from "@/components/Dropdowns/LoginDropdown";
 import NotificationDropdown from "./Dropdowns/NotificationDropdown";
 import Searchbar from "@/components/Searchbar";
+import ChatBox from "./ChatBox";
 
 export default function Header({ accessedCreate, accessedSearch }) {
   const router = useRouter();
@@ -71,6 +71,7 @@ export default function Header({ accessedCreate, accessedSearch }) {
       {accessedCreate ? (
         <div className="flex flex-row items-center space-x-8 w-[fit] justify-between">
           <NotificationDropdown
+            // updated={updated}
             newsContent={newsContentList}
           ></NotificationDropdown>
           <LoginDropdown></LoginDropdown>

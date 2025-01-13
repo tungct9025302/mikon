@@ -5,9 +5,39 @@ import Image from "next/image";
 
 import NotificationImg from "@/assets/notification.png";
 import BottomArrowIcon from "@/assets/bottom-arrow.svg";
+import ChatBox from "../ChatBox";
 
 export default function ContactDropdown({ newsContent }) {
-  const [updated, setUpdated] = useState(false);
+  const [showed, setShowed] = useState(false);
+  const [selectedUser, setSelectedUser] = useState();
+
+  function renderPostPerItem(item, index) {
+    return (
+      <div
+        className="flex px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+        key={index}
+        onClick={() => setSelectedUser(item["name"])}
+      >
+        <div className="flex-shrink-0">
+          <Avatar
+            className="rounded-full w-11 h-11"
+            src="https://pbs.twimg.com/media/E7-lsfNWEAUfLAW?format=png&name=small"
+            alt="Jese image"
+            height={30}
+            width={30}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+        </div>
+        <div className="flex w-full ps-3 items-center">
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {item["name"]}
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="hs-dropdown relative inline-flex">
@@ -21,19 +51,21 @@ export default function ContactDropdown({ newsContent }) {
         // className="relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
         type="button"
         onClick={() => {
-          setUpdated(true);
+          setShowed(!showed);
         }}
       >
         <div className="min-w-[12vw] min-h-[4vh] bg-[#E4FFFF] flex flex-row justify-end bg-white border-2 border-[#C0C0C0] rounded-lg justify-center items-center">
           <p className="text-[#00994C] font-bold">Contacts</p>
 
-          <Image
-            src={BottomArrowIcon}
-            width={20}
-            height={20}
-            alt=""
-            className="absolute right-2"
-          ></Image>
+          {showed ? null : (
+            <Image
+              src={BottomArrowIcon}
+              width={20}
+              height={20}
+              alt=""
+              className="absolute right-2"
+            ></Image>
+          )}
         </div>
 
         {/* <div
@@ -44,61 +76,25 @@ export default function ContactDropdown({ newsContent }) {
             }
             ></div> */}
       </button>
-
-      <div
-        className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="hs-dropdown-with-title"
-      >
-        <div className="p-1 space-y-0.5">
-          <div className="divide-y divide-gray-100 dark:divide-gray-700 max-w-[12vw]">
-            {newsContent.map((item, index) => {
-              return renderPostPerItem(item, index);
-            })}
+      <div className="flex flex-row space-x-5 hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 items-end">
+        <div className="divide-y divide-gray-100 dark:divide-gray-700 max-w-[20vw] bg-white shadow-md rounded-lg min-h-[40vh] content-between">
+          {selectedUser ? <ChatBox user={selectedUser}></ChatBox> : null}
+        </div>
+        <div
+          className="divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="hs-dropdown-with-title"
+        >
+          <div className="p-1 space-y-0.5">
+            <div className="divide-y divide-gray-100 dark:divide-gray-700 max-w-[12vw] bg-white shadow-md rounded-lg">
+              {newsContent.map((item, index) => {
+                return renderPostPerItem(item, index);
+              })}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  );
-}
-
-function renderPostPerItem(item, index) {
-  return (
-    <a
-      href="#"
-      className="flex px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 "
-      key={index}
-    >
-      <div className="flex-shrink-0">
-        <Avatar
-          className="rounded-full w-11 h-11"
-          src="https://pbs.twimg.com/media/E7-lsfNWEAUfLAW?format=png&name=small"
-          alt="Jese image"
-          height={30}
-          width={30}
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        {/* <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
-          <svg
-            className="w-2 h-2 text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 18 18"
-          >
-            <path d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z" />
-            <path d="M4.439 9a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239Z" />
-          </svg>
-        </div> */}
-      </div>
-      <div className="flex w-full ps-3 items-center">
-        <span className="font-semibold text-gray-900 dark:text-white">
-          {item["name"]}
-        </span>
-      </div>
-    </a>
   );
 }

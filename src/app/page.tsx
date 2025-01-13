@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useAppSelector } from "@/components/redux/store";
 
 import Post from "@/components/Post";
 import UltilityBox from "@/components/Ultilitybox";
@@ -10,6 +11,7 @@ import ContactDropdown from "@/components/Dropdowns/ContactDropdown";
 
 export default function homepage() {
   const [postType, setPostType] = useState(0);
+  const username: any = useAppSelector((state: any) => state.value.username);
   let postTypes = [
     { name: "Recommended" },
     { name: "Following" },
