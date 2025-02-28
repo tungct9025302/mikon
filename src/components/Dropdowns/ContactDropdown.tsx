@@ -76,7 +76,7 @@ export default function ContactDropdown({ newsContent }) {
             }
             ></div> */}
       </button>
-      <div className="flex flex-row space-x-5 hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 items-end">
+      <div className="flex flex-row space-x-5 hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden items-end">
         <div className="divide-y divide-gray-100 dark:divide-gray-700 max-w-[20vw] bg-white shadow-md rounded-lg min-h-[40vh] content-between">
           {selectedUser ? <ChatBox user={selectedUser}></ChatBox> : null}
         </div>
@@ -86,7 +86,7 @@ export default function ContactDropdown({ newsContent }) {
           aria-orientation="vertical"
           aria-labelledby="hs-dropdown-with-title"
         >
-          <div className="p-1 space-y-0.5">
+          <div className="p-1 space-y-0.5 min-w-[12vw]">
             <div className="divide-y divide-gray-100 dark:divide-gray-700 max-w-[12vw] bg-white shadow-md rounded-lg">
               {newsContent.map((item, index) => {
                 return renderPostPerItem(item, index);

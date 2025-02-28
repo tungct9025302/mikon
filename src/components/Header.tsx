@@ -13,6 +13,7 @@ import ChatBox from "./ChatBox";
 
 export default function Header({ accessedCreate, accessedSearch }) {
   const router = useRouter();
+
   const [tab, setTab] = useState(0);
   const [updated, setUpdated] = useState(false);
   const newsContentList = [

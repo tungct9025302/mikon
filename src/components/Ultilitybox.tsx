@@ -133,7 +133,7 @@ export default function ultilitybox() {
 
   function renderLoginBox() {
     return (
-      <div className="flex flex-col bg-[url('/login_bg.jpeg')] bg-cover min-h-[24vh] rounded-2xl space-y-2 border-2  max-w-[20vw] pb-5">
+      <div className="flex flex-col bg-[url('/login_bg.jpeg')] bg-cover min-h-[20vh] rounded-2xl space-y-2 border-2  max-w-[20vw] pb-5">
         <Image src={LoginIcon} width={50} height={50} alt=""></Image>
         <div className="flex w-full justify-center">
           <div className=" min-w-[200px] w-[15vw]">
@@ -154,7 +154,10 @@ export default function ultilitybox() {
 
   function renderQuickActionBox() {
     return (
-      <div className="flex flex-col bg-white bg-cover min-h-[24vh] rounded-2xl space-y-2 border-2  max-w-[20vw]  pb-5">
+      <div
+        className="flex flex-col bg-white bg-cover  rounded-2xl space-y-2 border-2  max-w-[20vw] 
+    "
+      >
         <div className="flex flex-row justify-between m-3">
           <p className="text-xl font-semibold font-mono">Post something</p>
           <div className="flex flex-row">
@@ -163,7 +166,7 @@ export default function ultilitybox() {
           </div>
         </div>
 
-        <div className="flex flex-row justify-evenly w-full min-h-[12vh] place-items-center">
+        <div className="flex flex-row justify-evenly w-full min-h-[16vh] w-full items-center">
           <div className="flex flex-col items-center">
             <Link href="/create-post">
               <Image

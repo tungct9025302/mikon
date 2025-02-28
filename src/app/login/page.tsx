@@ -1,12 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import GoogleIcon from "@/assets/google.svg";
 import FacebookIcon from "@/assets/facebook.svg";
 import TwitterIcon from "@/assets/twitter.svg";
+import { getUsers, getUser, createUser, updateUser, deleteUser } from "../api";
+
+import { logIn, logOut } from "@/redux/features/auth-slice";
+import { useDispatch } from "react-redux";
+
+import { useRouter } from "next/navigation";
 
 export default function login() {
+  const [users, setUsers] = useState([]);
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function loadAllUsers() {
+      let data = await getUsers();
+      if (data) {
+        setUsers(data);
+      }
+    }
+    loadAllUsers();
+  }, []);
+
+  function handleLogin() {
+    console.log(users);
+    if (users.length != 0) {
+      for (var i = 0; i < users.length; i++) {
+        var inputtedUsername = document.getElementById("username")["value"];
+        var inputtedPassword = document.getElementById("password")["value"];
+        var retrievedUsername = users[i]["username"];
+        var retrievedPassword = users[i]["password"];
+
+        if (
+          retrievedUsername == inputtedUsername &&
+          retrievedPassword == inputtedPassword
+        ) {
+          dispatch(logIn(inputtedUsername));
+          router.push("/");
+        }
+      }
+    }
+  }
+
   return (
     <div className="flex flex-col">
       <div className="bg-[#F5F6F7] justify-center">
@@ -34,15 +74,12 @@ export default function login() {
             <div className="bg-white py-10 px-4 shadow sm:rounded-2xl sm:px-10">
               <form className="space-y-6" action="#" method="POST">
                 <div>
-                  <label
-                    for="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label className="block text-sm font-medium text-gray-700">
                     Email address
                   </label>
                   <div className="mt-1">
                     <input
-                      id="email"
+                      id="username"
                       name="email"
                       type="email"
                       autoComplete="email"
@@ -54,10 +91,7 @@ export default function login() {
                 </div>
 
                 <div>
-                  <label
-                    for="password"
-                    className="block text-sm font-medium text-gray-700"
-                  >
+                  <label className="block text-sm font-medium text-gray-700">
                     Password
                   </label>
                   <div className="mt-1">
@@ -81,10 +115,7 @@ export default function login() {
                       type="checkbox"
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                     />
-                    <label
-                      for="remember_me"
-                      className="ml-2 block text-sm text-gray-900"
-                    >
+                    <label className="ml-2 block text-sm text-gray-900">
                       Remember me
                     </label>
                   </div>
@@ -102,6 +133,9 @@ export default function login() {
                 <div>
                   <button
                     type="submit"
+                    onClick={() => {
+                      handleLogin();
+                    }}
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Sign in
@@ -119,7 +153,6 @@ export default function login() {
                     </span>
                   </div>
                 </div>
-
                 <div className="mt-6 grid grid-cols-3 gap-3">
                   <div>
                     <a

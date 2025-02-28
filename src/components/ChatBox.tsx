@@ -9,7 +9,7 @@ import SendIcon from "@/assets/send-message.svg";
 
 export default function ChatBox({ user }) {
   return (
-    <div className="flex flex-col min-w-[16vw]">
+    <div className="flex flex-col min-w-[20vw]">
       <div className="flex justify-between px-2 border-b ">
         <div className="py-2 pl-2 flex flex-row items-center space-x-2">
           <div className="flex-shrink-0">
