@@ -118,8 +118,6 @@ export default function ultilitybox() {
             className="m-1 rounded-full"
             variant="rounded"
             placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
         </div>
         <div>
@@ -230,8 +228,6 @@ export default function ultilitybox() {
                   className="m-1 rounded-full"
                   variant="rounded"
                   placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
                 />
               </div>
 

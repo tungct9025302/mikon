@@ -111,8 +111,6 @@ export default function searchbar({ accessedSearch }) {
                 setSelected(false);
               }}
               placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             />
           ) : (
             <Image

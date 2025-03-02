@@ -20,8 +20,6 @@ export default function ChatBox({ user }) {
               height={30}
               width={30}
               placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             />
           </div>
 

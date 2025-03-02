@@ -26,8 +26,6 @@ export default function ContactDropdown({ newsContent }) {
             height={30}
             width={30}
             placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
         </div>
         <div className="flex w-full ps-3 items-center">

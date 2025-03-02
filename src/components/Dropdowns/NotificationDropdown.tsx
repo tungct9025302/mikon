@@ -68,8 +68,6 @@ function renderPostPerItem(item, index) {
               height={50}
               width={50}
               placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
               <svg
@@ -114,8 +112,6 @@ function renderPostPerItem(item, index) {
               height={50}
               width={50}
               placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-gray-900 border border-white rounded-full dark:border-gray-800">
               <svg
@@ -162,8 +158,6 @@ function renderPostPerItem(item, index) {
               height={50}
               width={50}
               placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-red-600 border border-white rounded-full dark:border-gray-800">
               <svg
@@ -209,8 +203,6 @@ function renderPostPerItem(item, index) {
               height={50}
               width={50}
               placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-green-400 border border-white rounded-full dark:border-gray-800">
               <svg
@@ -254,8 +246,6 @@ function renderPostPerItem(item, index) {
               height={50}
               width={50}
               placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             />
             <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-purple-500 border border-white rounded-full dark:border-gray-800">
               <svg

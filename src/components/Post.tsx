@@ -150,6 +150,7 @@ export default function post() {
                 alt=""
                 className="m-1 rounded-full"
                 variant="rounded"
+                placeholder={undefined}
               />
             </div>
 

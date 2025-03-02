@@ -11,24 +11,17 @@ import { logIn, logOut } from "@/redux/features/auth-slice";
 import { useDispatch } from "react-redux";
 
 import { useRouter } from "next/navigation";
+import SpinnerEffect from "@/components/SpinnerEffect";
+import Loading from "@/components/loading/loading";
 
 export default function login() {
+  const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function loadAllUsers() {
-      let data = await getUsers();
-      if (data) {
-        setUsers(data);
-      }
-    }
-    loadAllUsers();
-  }, []);
-
-  function handleLogin() {
-    console.log(users);
+  async function handleLogin() {
+    await loadAllUsers();
     if (users.length != 0) {
       for (var i = 0; i < users.length; i++) {
         var inputtedUsername = document.getElementById("username")["value"];
@@ -45,11 +38,30 @@ export default function login() {
         }
       }
     }
+    setLoading(false);
+  }
+  async function loadAllUsers() {
+    setLoading(true);
+    let data = await getUsers();
+
+    if (data) {
+      setUsers(data);
+    }
   }
 
   return (
     <div className="flex flex-col">
-      <div className="bg-[#F5F6F7] justify-center">
+      <div
+        className={
+          loading
+            ? "absolute flex justify-center w-full h-full items-center z-10"
+            : "hidden"
+        }
+      >
+        <Loading></Loading>
+      </div>
+
+      <div className="bg-[#F5F6F7] justify-center z-0">
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 className="mt-6 justify-center text-3xl font-extrabold text-gray-900 flex flex-row space-x-2">
