@@ -7,17 +7,17 @@ import NonUserIcon from "@/assets/non-user-icon.png";
 import LoginIcon from "@/assets/login-icon.svg";
 import Image from "next/image";
 
-import { logIn, logOut } from "@/redux/features/auth-slice";
+import { logIn, logOut } from "@/components/redux/features/auth-slices";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function dropdown() {
-  const username = useSelector((state) => state["value"]["username"]);
-  console.log(username);
+  const userid = useSelector((state) => state["value"]["userid"]);
+  console.log(userid);
   const dispatch = useDispatch();
   const router = useRouter();
 
   function checkLogged() {
-    return username ? (
+    return userid ? (
       <div
         onClick={() => dispatch(logOut())}
         className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
@@ -94,7 +94,7 @@ export default function dropdown() {
             </span>
             <a
               className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-              href="#"
+              href="/change-password"
             >
               <svg
                 className="shrink-0 size-4"
@@ -114,8 +114,8 @@ export default function dropdown() {
               My Profile
             </a>
             <a
-              className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-              href="#"
+              className="flex cursor-pointer items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+              onClick={() => router.push("/change-password")}
             >
               <svg
                 className="shrink-0 size-4"
@@ -240,5 +240,5 @@ export default function dropdown() {
     );
   }
 
-  return <>{username ? renderLogged() : renderUnlogged()}</>;
+  return <>{userid ? renderLogged() : renderUnlogged()}</>;
 }

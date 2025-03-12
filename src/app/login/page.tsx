@@ -1,52 +1,56 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import GoogleIcon from "@/assets/google.svg";
 import FacebookIcon from "@/assets/facebook.svg";
 import TwitterIcon from "@/assets/twitter.svg";
-import { getUsers, getUser, createUser, updateUser, deleteUser } from "../api";
 
-import { logIn, logOut } from "@/redux/features/auth-slice";
+import {
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  verifyUser,
+} from "../api";
+import { logIn, logOut } from "@/components/redux/features/auth-slices";
 import { useDispatch } from "react-redux";
-
 import { useRouter } from "next/navigation";
-import SpinnerEffect from "@/components/SpinnerEffect";
-import Loading from "@/components/loading/loading";
+
+import Loading from "@/components/LoadingEffect/Loading";
 
 export default function login() {
+  //setState
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  //route
   const router = useRouter();
+
+  //redux
   const dispatch = useDispatch();
 
-  async function handleLogin() {
-    await loadAllUsers();
-    if (users.length != 0) {
-      for (var i = 0; i < users.length; i++) {
-        var inputtedUsername = document.getElementById("username")["value"];
-        var inputtedPassword = document.getElementById("password")["value"];
-        var retrievedUsername = users[i]["username"];
-        var retrievedPassword = users[i]["password"];
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
 
-        if (
-          retrievedUsername == inputtedUsername &&
-          retrievedPassword == inputtedPassword
-        ) {
-          dispatch(logIn(inputtedUsername));
-          router.push("/");
-        }
-      }
+    let response = await verifyUser(user);
+
+    if (response) {
+      dispatch(logIn(response["user"]["_id"]));
+      router.push("/");
+    } else {
+      alert("Login failed");
     }
     setLoading(false);
   }
-  async function loadAllUsers() {
-    setLoading(true);
-    let data = await getUsers();
 
-    if (data) {
-      setUsers(data);
-    }
+  function handleChange(e) {
+    setUser({ ...user, [e.target.name]: e.target.value });
   }
 
   return (
@@ -84,20 +88,29 @@ export default function login() {
 
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white py-10 px-4 shadow sm:rounded-2xl sm:px-10">
-              <form className="space-y-6" action="#" method="POST">
+              <form
+                id="form"
+                onSubmit={() => {
+                  handleSubmit(event);
+                }}
+                className="space-y-6"
+              >
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Email address
+                    Username
                   </label>
                   <div className="mt-1">
                     <input
                       id="username"
                       name="email"
                       type="email"
-                      autoComplete="email"
+                      autoComplete="text"
                       required
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                       placeholder="Enter your email address"
+                      onChange={() => {
+                        handleChange(event);
+                      }}
                     />
                   </div>
                 </div>
@@ -115,6 +128,9 @@ export default function login() {
                       required
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                       placeholder="Enter your password"
+                      onChange={() => {
+                        handleChange(event);
+                      }}
                     />
                   </div>
                 </div>
@@ -145,9 +161,6 @@ export default function login() {
                 <div>
                   <button
                     type="submit"
-                    onClick={() => {
-                      handleLogin();
-                    }}
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Sign in

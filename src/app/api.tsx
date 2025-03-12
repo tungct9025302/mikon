@@ -20,17 +20,27 @@ export async function getUser(id) {
   }
 }
 
-export async function createUser(post) {
-  const response = await axios.post(`${URL}/users`, post);
+export async function createUser(user) {
+  const response = await axios.post(`${URL}/users`, user);
   return response;
 }
 
-export async function updateUser(id, post) {
-  const response = await axios.put(`${URL}/users/${id}`, post);
+export async function updateUser(id, user) {
+  const response = await axios.put(`${URL}/users/${id}`, user);
   return response;
 }
 
 export async function deleteUser(id) {
   const response = await axios.get(`${URL}/users/${id}`);
   return response;
+}
+
+export async function verifyUser(user) {
+  const response = await axios.post(`${URL}/users/login`, user);
+
+  if (response.data.success) {
+    return response.data;
+  } else {
+    return;
+  }
 }

@@ -10,146 +10,94 @@ import { useAppSelector } from "@/components/redux/store";
 
 import Loading from "@/components/LoadingEffect/Loading";
 
-import Image from "next/image";
-import GoogleIcon from "@/assets/google.svg";
-import FacebookIcon from "@/assets/facebook.svg";
-import TwitterIcon from "@/assets/twitter.svg";
-
-export default function register() {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+export default function changepassword() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const userid: any = useAppSelector((state: any) => state.value.userid);
+  const [newPw, setNewPw] = useState({
+    password: "",
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
-    let response = await createUser(user);
+    // setLoading(true);
+
+    let response = await updateUser(userid, newPw);
     console.log(response);
-
-    if (response.status !== 200) {
-      alert("User account could not be created");
-    }
-    if (response.status === 200) {
-      router.push("/login");
-    }
-    setLoading(false);
+    // setLoading(false);
   }
-
   function handleChange(e) {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
+    setNewPw({ ...newPw, [e.target.name]: e.target.value });
   }
 
   return (
     <div className="flex flex-col">
-      <div className="bg-[#F5F6F7] justify-center">
+      <div
+        className={
+          loading
+            ? "absolute flex justify-center w-full h-full items-center z-10"
+            : "hidden"
+        }
+      >
+        <Loading></Loading>
+      </div>
+
+      <div className="bg-[#F5F6F7] justify-center z-0">
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 className="mt-6 justify-center text-3xl font-extrabold text-gray-900 flex flex-row text-wrap  space-x-2">
-              <div>
-                <p>Register to be a </p>
-              </div>
+            <h2 className="mt-6 justify-center text-3xl font-extrabold text-gray-900 flex flex-row space-x-2">
+              <p>Change password</p>
 
-              <p className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+              {/* <p className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
                 Mikon
-              </p>
+              </p> */}
             </h2>
           </div>
 
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white py-10 px-4 shadow sm:rounded-2xl sm:px-10">
               <form
-                className="space-y-6"
+                id="form"
                 onSubmit={() => {
                   handleSubmit(event);
                 }}
+                className="space-y-6"
               >
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Email address
+                    New Password
                   </label>
                   <div className="mt-1">
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      id="new-password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      placeholder="Enter your password"
                       onChange={() => {
                         handleChange(event);
                       }}
-                      required
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="Enter your email address"
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    New password
+                    Re-enter Password
                   </label>
                   <div className="mt-1">
                     <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      onChange={() => {
-                        handleChange(event);
-                      }}
-                      required
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="Enter password"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Confirm password
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="password"
+                      id="confirm-password"
                       name="password"
                       type="password"
                       autoComplete="current-password"
                       required
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="Re-enter password"
+                      placeholder="Re-enter inputted password"
                     />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    {/* <input
-                      id="remember_me"
-                      name="remember_me"
-                      type="checkbox"
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <label
-                      for="remember_me"
-                      className="ml-2 block text-sm text-gray-900"
-                    >
-                      Remember me
-                    </label> */}
-                  </div>
-
-                  <div className="text-sm">
-                    <a
-                      href="#"
-                      className="font-medium text-blue-600 hover:text-blue-500"
-                    >
-                      Having login issue?
-                    </a>
                   </div>
                 </div>
 
@@ -158,7 +106,7 @@ export default function register() {
                     type="submit"
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    Create
+                    Confirm
                   </button>
                 </div>
               </form>
@@ -168,13 +116,12 @@ export default function register() {
                     <div className="w-full border-t border-gray-300"></div>
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-gray-100 text-gray-500">
-                      Or continue with
-                    </span>
+                    <a className="px-2 bg-gray-100 text-gray-500" href="/FAQ">
+                      Want to update other information?
+                    </a>
                   </div>
                 </div>
-
-                <div className="mt-6 grid grid-cols-3 gap-3">
+                {/* <div className="mt-6 grid grid-cols-3 gap-3">
                   <div>
                     <a
                       href="#"
@@ -199,7 +146,7 @@ export default function register() {
                       <Image width={20} height={20} src={GoogleIcon} alt="" />
                     </a>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

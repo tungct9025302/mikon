@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState = {
   value: {
     isAuth: false,
-    username: "",
+    userid: "",
     uid: "",
     isModerator: false,
   },
@@ -17,10 +17,11 @@ export const auth = createSlice({
       return initialState;
     },
     logIn: (state, action) => {
+      console.log(action.payload);
       return {
         value: {
           isAuth: true,
-          username: action.payload,
+          userid: action.payload,
           uid: "",
           isModerator: false,
         },

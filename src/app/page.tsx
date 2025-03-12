@@ -11,7 +11,7 @@ import ContactDropdown from "@/components/Dropdowns/ContactDropdown";
 
 export default function homepage() {
   const [postType, setPostType] = useState(0);
-  const username: any = useAppSelector((state: any) => state.value.username);
+  const userid: any = useAppSelector((state: any) => state.value.userid);
   let postTypes = [
     { name: "Recommended" },
     { name: "Following" },
