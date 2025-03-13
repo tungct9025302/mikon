@@ -3,6 +3,7 @@ const database = require("./connect");
 const ObjectID = require("mongodb").ObjectId;
 
 const bcrypt = require("bcrypt");
+const { Alert } = require("flowbite-react");
 const SALT_ROUNDS = 6;
 
 let userRoutes = express.Router();
@@ -60,21 +61,41 @@ userRoutes.route("/users").post(async (request, response) => {
 //Update one
 userRoutes.route("/users/:id").put(async (request, response) => {
   let db = database.getDb();
-  const hash = await bcrypt.hash(request.body.password, SALT_ROUNDS);
-  let mongoObject = {
-    $set: {
-      name: request.body.name,
-      email: request.body.email,
-      password: hash,
-      createdDate: request.body.createdDate,
-      posts: request.body.posts,
-    },
-  };
-  let data = await db
+  const user = await db
     .collection("users")
-    .updateOne({ _id: new ObjectID(request.params.id), mongoObject });
+    .findOne({ _id: new ObjectID(request.params.id) });
 
-  response.json(data);
+  if (user) {
+    let matchOldPw = await bcrypt.compare(request.body.password, user.password);
+
+    if (!matchOldPw) {
+      const hash = await bcrypt.hash(request.body.password, SALT_ROUNDS);
+      let mongoObject = {
+        $set: {
+          password: hash,
+        },
+      };
+      let data = await db
+        .collection("users")
+        .updateOne({ _id: new ObjectID(request.params.id) }, mongoObject);
+
+      response.json({
+        success: true,
+        message: "Updated successfully. Return to login page.",
+        ...data,
+      });
+    } else {
+      response.json({
+        success: false,
+        message: "Bruh this is your old pw...",
+      });
+    }
+  } else {
+    response.json({
+      success: false,
+      message: "User not found",
+    });
+  }
 });
 
 //Delete one

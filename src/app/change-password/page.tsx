@@ -21,11 +21,23 @@ export default function changepassword() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
 
     let response = await updateUser(userid, newPw);
     console.log(response);
-    // setLoading(false);
+    if (response.status !== 200) {
+      alert("Unable to take this action");
+    }
+
+    if (response.data.success) {
+      alert(response.data.message);
+      dispatch(logOut());
+      router.push("/login");
+    } else {
+      alert(response.data.message);
+    }
+
+    setLoading(false);
   }
   function handleChange(e) {
     setNewPw({ ...newPw, [e.target.name]: e.target.value });
