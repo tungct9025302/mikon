@@ -16,7 +16,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("preline/plugin"), flowbite],
+  plugins: [require("preline/plugin")],
 };
 
 export default config;

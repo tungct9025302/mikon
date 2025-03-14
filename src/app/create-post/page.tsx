@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/components/redux/store";
 
 import CoverIcon from "@/assets/cover.svg";
 import EmoteIcon from "@/assets/emoji.svg";
@@ -17,11 +20,33 @@ import NumberlistIcon from "@/assets/number-list.svg";
 import HeaderIcon from "@/assets/header.svg";
 
 import Header from "@/components/Header";
+import CategoryDropdown from "@/components/Dropdowns/CategoryDropdown";
 
 export default function createpost() {
-  const [tab, setTab] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [postContent, setPostContent] = useState({
+    title: "",
+    content: "",
+    category: "",
+    date: "",
+    reactions: "",
+    comments: "",
+    views: "",
+    tags: [],
+    images: [],
+  });
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const userid: any = useAppSelector((state: any) => state.value.userid);
+
+  //To be checked
   const [postType, setPostType] = useState(0);
   let postTypes = [{ name: "Post" }];
+
+  function handleChange(e) {
+    setPostContent({ ...postContent, [e.target.name]: e.target.value });
+  }
 
   function renderNavTitle(item, index) {
     return (
@@ -49,11 +74,16 @@ export default function createpost() {
 
   function renderAddCover() {
     return (
-      <div className="flex flex-col mx-10 my-5 space-y-2">
-        <p className="text-lg text-gray-800 font-semibold">Post Cover</p>
-        <div className="flex flex-row rounded-lg rounded-full bg-[#FDFDFD] w-fit py-2 px-5 border-[#CACACA] border-2 space-x-2 cursor-pointer">
-          <Image src={CoverIcon} width={30} height={30} alt=""></Image>
-          <p className="text-lg text-gray-800 font-semibold">Add Cover</p>
+      <div className="flex flex-row justify-between mx-10 my-5 space-y-2">
+        <div className="flex flex-col space-y-2">
+          <p className="text-lg text-gray-800 font-semibold">Post Cover</p>
+          <div className="flex flex-row rounded-lg rounded-full bg-[#FDFDFD] w-fit py-2 px-5 border-[#CACACA] border-2 space-x-2 cursor-pointer">
+            <Image src={CoverIcon} width={30} height={30} alt=""></Image>
+            <p className="text-lg text-gray-800 font-semibold">Add Cover</p>
+          </div>
+        </div>
+        <div>
+          <CategoryDropdown></CategoryDropdown>
         </div>
       </div>
     );
@@ -74,11 +104,13 @@ export default function createpost() {
                 Title
               </label>
               <input
+                name="title"
                 type="text"
                 id="first_name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
                 placeholder="Fill in a title"
                 required
+                onChange={() => handleChange(event)}
               />
             </div>
           </div>
@@ -115,11 +147,15 @@ export default function createpost() {
           </div>
           <div className="my-2 mx-5">
             <input
+              name="content"
               type="text"
               id="first_name"
               className="w-full h-full outline-0"
               placeholder="Enter your text here"
               required
+              onChange={() => {
+                handleChange(event);
+              }}
             />
             {/* <p className="text-lg text-gray-400 font-semibold"></p> */}
           </div>
