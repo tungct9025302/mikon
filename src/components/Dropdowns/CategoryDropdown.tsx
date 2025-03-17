@@ -36,6 +36,41 @@ export default function CategoryDropdown() {
       iconUrl:
         "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
     },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
+    },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
+    },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
+    },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
+    },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
+    },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
+    },
+    {
+      name: "Darksouls II",
+      iconUrl:
+        "https://cdn2.steamgriddb.com/icon_thumb/56e35bb7fdbbc6570acb607ad4ab4be0.png",
+    },
   ];
 
   function generateRow(item, index) {
@@ -44,8 +79,8 @@ export default function CategoryDropdown() {
         key={index}
         className="flex cursor-pointer w-full border-gray-300 rounded-lg hover:bg-teal-100 h-10 align-center items-center"
         onClick={() => {
-          // setSearchValue(item["name"]);
-          // setShowResult(false);
+          setSearchValue(item["name"]);
+          setShowResult(false);
         }}
       >
         <div className="flex flex-row relative items-center m-1 mr-2 w-8 h-8 mt-1 rounded-full">
@@ -65,7 +100,7 @@ export default function CategoryDropdown() {
 
   return (
     <div>
-      <div className="hs-dropdown relative [--placement:bottom-left] inline-flex">
+      {/* <div className="hs-dropdown relative [--placement:bottom-left] inline-flex">
         <button
           id="hs-dropdown"
           type="button"
@@ -124,18 +159,21 @@ export default function CategoryDropdown() {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="inline-flex">
         <input
+          readOnly={true}
+          value={searchValue}
+          placeholder="Add your game"
           type="text"
           onChange={() => {
             handleInputChange(event);
           }}
-          className="relative py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-s-md border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+          className=" relative py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-s-md border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
         />
 
-        <div className="hs-dropdown relative [--placement:bottom-left] inline-flex">
+        <div className="hs-dropdown relative [--placement:bottom-right] inline-flex">
           <button
             id="hs-split-dropdown"
             type="button"
@@ -162,18 +200,10 @@ export default function CategoryDropdown() {
             className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 dark:bg-neutral-800 dark:border dark:border-neutral-700"
             aria-labelledby="hs-split-dropdown"
           >
-            <div className="p-1 space-y-0.5">
-              {samples
-                .filter(
-                  (item) =>
-                    item["name"]
-                      .toLowerCase()
-                      .startsWith(searchValue.toLowerCase()) &&
-                    searchValue.length != 0
-                )
-                .map((item, index) => {
-                  return generateRow(item, index);
-                })}
+            <div className="p-1 space-y-0.5 overflow-y-auto max-h-[14vh]">
+              {samples.map((item, index) => {
+                return generateRow(item, index);
+              })}
             </div>
           </div>
         </div>

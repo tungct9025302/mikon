@@ -24,6 +24,7 @@ import CategoryDropdown from "@/components/Dropdowns/CategoryDropdown";
 
 export default function createpost() {
   const [loading, setLoading] = useState(false);
+  const [tagIncr, setTagIncr] = useState(1);
   const [postContent, setPostContent] = useState({
     title: "",
     content: "",
@@ -46,6 +47,11 @@ export default function createpost() {
 
   function handleChange(e) {
     setPostContent({ ...postContent, [e.target.name]: e.target.value });
+  }
+  function handleTagIncr(e) {
+    if (e.target.value.charAt(e.target.value.length - 1) == " ") {
+      setTagIncr(tagIncr + 1);
+    }
   }
 
   function renderNavTitle(item, index) {
@@ -95,8 +101,8 @@ export default function createpost() {
         {/* <p className="text-lg text-gray-800 font-semibold">Title</p>
         <div className="flex flex-row rounded-lg rounded-full bg-[#f2f2f2] w-fit py-2 px-5 border-[#CACACA] border-2 space-x-2"> */}
         <form>
-          <div className="grid gap-6 mb-6 md:grid-cols-2">
-            <div>
+          <div className="flex flex-row grid gap-6 mb-6 md:grid-cols-2">
+            <div className="">
               <label
                 // htmlFor="first_name"
                 className="block mb-2 text-lg text-gray-800 font-semibold dark:text-white"
@@ -106,12 +112,33 @@ export default function createpost() {
               <input
                 name="title"
                 type="text"
-                id="first_name"
+                id="title"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
                 placeholder="Fill in a title"
                 required
                 onChange={() => handleChange(event)}
               />
+            </div>
+            <div className="flex flex-col">
+              <label
+                // htmlFor="first_name"
+                className="block mb-2 text-lg text-gray-800 font-semibold dark:text-white"
+              >
+                Tag
+              </label>
+              <div className="flex flex-row items-center">
+                <div className="text-3xl text-[#9C9CFF] font-bold">#</div>
+                <input
+                  name="tag"
+                  type="text"
+                  id="tag"
+                  className="text-2xl text-[#9C9CFF] w-auto min-w-[1vw] bg-transpararent focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
+                  required
+                  onChange={() => {
+                    handleChange(event), handleTagIncr(event);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </form>
