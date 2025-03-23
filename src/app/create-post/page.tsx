@@ -24,7 +24,7 @@ import CategoryDropdown from "@/components/Dropdowns/CategoryDropdown";
 
 export default function createpost() {
   const [loading, setLoading] = useState(false);
-  const [tagIncr, setTagIncr] = useState(1);
+  const [tagList, setTagList] = useState([""]);
   const [postContent, setPostContent] = useState({
     title: "",
     content: "",
@@ -45,13 +45,23 @@ export default function createpost() {
   const [postType, setPostType] = useState(0);
   let postTypes = [{ name: "Post" }];
 
-  function handleChange(e) {
-    setPostContent({ ...postContent, [e.target.name]: e.target.value });
-  }
-  function handleTagIncr(e) {
-    if (e.target.value.charAt(e.target.value.length - 1) == " ") {
-      setTagIncr(tagIncr + 1);
+  function handleChange(e, index) {
+    var inputedVal = e.target.value;
+    setPostContent({ ...postContent, [e.target.name]: inputedVal });
+
+    if (
+      inputedVal.charAt(e.target.value.length - 1) == " " &&
+      index == tagList.length - 1
+    ) {
+      handleTagSplit(inputedVal);
     }
+  }
+  function handleTagSplit(inputedVal) {
+    var tagWithoutSpace = inputedVal.slice(0, -1);
+    tagList.splice(tagList.length, 0, tagWithoutSpace);
+
+    setTagList(tagList);
+    console.log(tagWithoutSpace);
   }
 
   function renderNavTitle(item, index) {
@@ -127,23 +137,31 @@ export default function createpost() {
                 Tag
               </label>
               <div className="flex flex-row items-center">
-                <div className="text-3xl text-[#9C9CFF] font-bold">#</div>
-                <input
-                  name="tag"
-                  type="text"
-                  id="tag"
-                  className="text-2xl text-[#9C9CFF] w-auto min-w-[1vw] bg-transpararent focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
-                  required
-                  onChange={() => {
-                    handleChange(event), handleTagIncr(event);
-                  }}
-                />
+                {renderTagByIncrement()}
               </div>
             </div>
           </div>
         </form>
       </div>
     );
+  }
+
+  function renderTagByIncrement() {
+    return tagList.map((item, index) => (
+      <div key={index} className="flex flex-row items-center">
+        <div className="text-3xl text-[#9C9CFF] font-bold">#</div>
+        <input
+          name="tag"
+          type="text"
+          id="tag"
+          className="text-2xl text-[#9C9CFF] w-auto min-w-[1vw] bg-transpararent focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
+          required
+          onChange={() => {
+            handleChange(event, index);
+          }}
+        />
+      </div>
+    ));
   }
 
   function renderContentSection() {
@@ -181,7 +199,7 @@ export default function createpost() {
               placeholder="Enter your text here"
               required
               onChange={() => {
-                handleChange(event);
+                handleChange(event, index);
               }}
             />
             {/* <p className="text-lg text-gray-400 font-semibold"></p> */}

@@ -23,18 +23,25 @@ export default function changepassword() {
     e.preventDefault();
     setLoading(true);
 
-    let response = await updateUser(userid, newPw);
-    console.log(response);
-    if (response.status !== 200) {
-      alert("Unable to take this action");
-    }
+    const inputedPw = document.getElementById("new-password")["value"];
+    const confirmPw = document.getElementById("confirm-password")["value"];
 
-    if (response.data.success) {
-      alert(response.data.message);
-      dispatch(logOut());
-      router.push("/login");
+    if (inputedPw.toString() === confirmPw.toString()) {
+      let response = await updateUser(userid, newPw);
+
+      if (response.status !== 200) {
+        alert("Unable to take this action");
+      }
+
+      if (response.data.success) {
+        alert(response.data.message);
+        dispatch(logOut());
+        router.push("/login");
+      } else {
+        alert(response.data.message);
+      }
     } else {
-      alert(response.data.message);
+      alert("Password does not match!");
     }
 
     setLoading(false);
