@@ -33,7 +33,7 @@ export default function createpost() {
     reactions: "",
     comments: "",
     views: "",
-    tags: [],
+    tags: [""],
     images: [],
   });
 
@@ -47,8 +47,8 @@ export default function createpost() {
 
   function handleChange(e, index) {
     var inputedVal = e.target.value;
-    setPostContent({ ...postContent, [e.target.name]: inputedVal });
 
+    tagList[tagList.length - 1] = inputedVal;
     if (
       inputedVal.charAt(e.target.value.length - 1) == " " &&
       index == tagList.length - 1
@@ -58,10 +58,13 @@ export default function createpost() {
   }
   function handleTagSplit(inputedVal) {
     var tagWithoutSpace = inputedVal.slice(0, -1);
-    tagList.splice(tagList.length, 0, tagWithoutSpace);
 
-    setTagList(tagList);
-    console.log(tagWithoutSpace);
+    var tempTagList = [...tagList];
+    tempTagList[tagList.length - 1] == tagWithoutSpace;
+    tempTagList.push("");
+
+    setTagList(tempTagList);
+    console.log(tagList);
   }
 
   function renderNavTitle(item, index) {
@@ -99,7 +102,10 @@ export default function createpost() {
           </div>
         </div>
         <div>
-          <CategoryDropdown></CategoryDropdown>
+          <CategoryDropdown
+            postContent={postContent}
+            setPostContent={setPostContent}
+          ></CategoryDropdown>
         </div>
       </div>
     );
@@ -126,7 +132,9 @@ export default function createpost() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
                 placeholder="Fill in a title"
                 required
-                onChange={() => handleChange(event)}
+                onChange={() => {
+                  handleUpdatePostContent(event);
+                }}
               />
             </div>
             <div className="flex flex-col">
@@ -136,7 +144,7 @@ export default function createpost() {
               >
                 Tag
               </label>
-              <div className="flex flex-row items-center">
+              <div className="grid grid-cols-2 max-w-[30vw]">
                 {renderTagByIncrement()}
               </div>
             </div>
@@ -162,6 +170,11 @@ export default function createpost() {
         />
       </div>
     ));
+  }
+
+  function autoResize(textarea) {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
   }
 
   function renderContentSection() {
@@ -190,21 +203,42 @@ export default function createpost() {
             <Image src={TextalignIcon} width={30} height={30} alt=""></Image>
             <Image src={HeaderIcon} width={50} height={50} alt=""></Image>
           </div>
-          <div className="my-2 mx-5">
-            <input
+          <div className="my-2 mx-5 ">
+            <textarea
               name="content"
-              type="text"
-              id="first_name"
-              className="w-full h-full outline-0"
+              id="content"
+              className="w-full h-max outline-0 min-h-[50px] resize-none"
               placeholder="Enter your text here"
               required
+              onInput={() => {
+                autoResize(document.getElementById("content"));
+              }}
               onChange={() => {
-                handleChange(event, index);
+                handleUpdatePostContent(event);
               }}
             />
-            {/* <p className="text-lg text-gray-400 font-semibold"></p> */}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  function handleUpdatePostContent(event) {
+    setPostContent({ ...postContent, [event.target.name]: event.target.value });
+  }
+
+  function renderSubmitButton() {
+    return (
+      <div
+        onClick={() => {
+          setPostContent({
+            ...postContent,
+            tags: tagList,
+          });
+        }}
+        className="flex flex-row rounded-lg rounded-full bg-[#a6edff] w-fit py-2 px-5 border-[#CACACA] border-2 space-x-2 cursor-pointer"
+      >
+        <p className="text-lg text-gray-800 font-semibold">Post</p>
       </div>
     );
   }
@@ -233,8 +267,7 @@ export default function createpost() {
           {/* renderContentSection */}
           {renderContentSection()}
 
-          {/* renderPost */}
-          {/* <Post></Post> */}
+          <div className="flex justify-center mb-6">{renderSubmitButton()}</div>
         </div>
         {/* <div className="min-w-[20vw]">
           <UltilityBox></UltilityBox>
