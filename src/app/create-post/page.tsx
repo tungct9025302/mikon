@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -23,9 +23,9 @@ import Header from "@/components/Header";
 import CategoryDropdown from "@/components/Dropdowns/CategoryDropdown";
 
 export default function createpost() {
-  const [loading, setLoading] = useState(false);
-  const [tagList, setTagList] = useState([""]);
-  const [postContent, setPostContent] = useState({
+  let [loading, setLoading] = useState(false);
+  let [tagList, setTagList] = useState([""]);
+  let [postContent, setPostContent] = useState({
     title: "",
     content: "",
     category: "",
@@ -45,26 +45,23 @@ export default function createpost() {
   const [postType, setPostType] = useState(0);
   let postTypes = [{ name: "Post" }];
 
-  function handleChange(e, index) {
-    var inputedVal = e.target.value;
+  function handleChange(e) {
+    var value = e.target.value;
+    const updatedTags = [...tagList];
+    updatedTags[updatedTags.length - 1] = value;
 
-    tagList[tagList.length - 1] = inputedVal;
-    if (
-      inputedVal.charAt(e.target.value.length - 1) == " " &&
-      index == tagList.length - 1
-    ) {
-      handleTagSplit(inputedVal);
-    }
+    setTagList(updatedTags);
   }
-  function handleTagSplit(inputedVal) {
-    var tagWithoutSpace = inputedVal.slice(0, -1);
 
-    var tempTagList = [...tagList];
-    tempTagList[tagList.length - 1] == tagWithoutSpace;
-    tempTagList.push("");
+  function handleKeyDown(e) {
+    if (e.code === "Space") {
+      e.preventDefault();
+      const currentTag = tagList[tagList.length - 1].trim();
 
-    setTagList(tempTagList);
-    console.log(tagList);
+      if (currentTag) {
+        setTagList([...tagList.slice(0, -1), currentTag, ""]);
+      }
+    }
   }
 
   function renderNavTitle(item, index) {
@@ -144,9 +141,8 @@ export default function createpost() {
               >
                 Tag
               </label>
-              <div className="grid grid-cols-2 max-w-[30vw]">
-                {renderTagByIncrement()}
-              </div>
+
+              {renderTagByIncrement()}
             </div>
           </div>
         </form>
@@ -155,21 +151,25 @@ export default function createpost() {
   }
 
   function renderTagByIncrement() {
-    return tagList.map((item, index) => (
-      <div key={index} className="flex flex-row items-center">
-        <div className="text-3xl text-[#9C9CFF] font-bold">#</div>
-        <input
-          name="tag"
-          type="text"
-          id="tag"
-          className="text-2xl text-[#9C9CFF] w-auto min-w-[1vw] bg-transpararent focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
-          required
-          onChange={() => {
-            handleChange(event, index);
-          }}
-        />
+    return (
+      <div>
+        <div className="grid grid-cols-2 max-w-[30vw]">
+          {tagList.slice(0, -1).map((tag, idx) => (
+            <div key={idx} className="flex flex-row">
+              <div className="text-3xl text-[#9C9CFF] font-bold">#</div>
+              <div className="text-3xl text-[#9C9CFF] font-bold">{tag}</div>
+            </div>
+          ))}
+          <input
+            type="text"
+            value={tagList[tagList.length - 1] || ""}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            className="text-2xl text-[#9C9CFF] w-auto min-w-[1vw] bg-transpararent focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
+          />
+        </div>
       </div>
-    ));
+    );
   }
 
   function autoResize(textarea) {
