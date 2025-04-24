@@ -1,142 +1,93 @@
 const express = require("express");
 const database = require("./connect");
-const ObjectID = require("mongodb").ObjectId;
+const { ObjectId } = require("mongodb");
 
-const bcrypt = require("bcrypt");
-const { Alert } = require("flowbite-react");
-const SALT_ROUNDS = 6;
+const postRoutes = express.Router();
 
-let postRoutes = express.Router();
+// GET all posts based on current userid
+postRoutes.get("/posts", async (req, res) => {
+  try {
+    const db = database.getDb();
+    const userid = req.query.userid;
 
-//Retrieve all
-postRoutes.route("/posts").get(async (request, response) => {
-  let db = database.getDb();
-  let data = await db.collection("posts").find({}).toArray();
-
-  if (data.length > 0) {
-    response.json(data);
-  } else {
-    throw new Error("Data was not found :(");
-  }
-});
-
-//Retrieve one
-postRoutes.route("/posts/:id").get(async (request, response) => {
-  let db = database.getDb();
-  let data = await db
-    .collection("posts")
-    .findOne({ _id: new ObjectID(request.params.id) });
-
-  if (Object.keys(data).length > 0) {
-    response.json(data);
-  } else {
-    throw new Error("Data was not found");
-  }
-});
-
-//Create one
-postRoutes.route("/posts").post(async (request, response) => {
-  let db = database.getDb();
-  const hash = await bcrypt.hash(request.body.password, SALT_ROUNDS);
-  const takenEmail = await db
-    .collection("posts")
-    .findOne({ email: request.body.email });
-
-  if (takenEmail) {
-    response.json({ message: "The email has been taken!" });
-  } else {
-    let mongoObject = {
-      name: request.body.name,
-      email: request.body.email,
-      password: hash,
-      createdDate: new Date(),
-      posts: [],
-    };
-    let data = await db.collection("posts").insertOne(mongoObject);
-
-    response.json(data);
-  }
-});
-
-//Update one
-postRoutes.route("/posts/:id").put(async (request, response) => {
-  let db = database.getDb();
-  const post = await db
-    .collection("posts")
-    .findOne({ _id: new ObjectID(request.params.id) });
-
-  if (post) {
-    let matchOldPw = await bcrypt.compare(request.body.password, post.password);
-
-    if (!matchOldPw) {
-      const hash = await bcrypt.hash(request.body.password, SALT_ROUNDS);
-      let mongoObject = {
-        $set: {
-          password: hash,
-        },
-      };
-      let data = await db
-        .collection("posts")
-        .updateOne({ _id: new ObjectID(request.params.id) }, mongoObject);
-
-      response.json({
-        success: true,
-        message: "Updated successfully. Return to login page.",
-        ...data,
-      });
-    } else {
-      response.json({
-        success: false,
-        message: "Bruh this is your old pw...",
-      });
+    let filter = {};
+    if (userid) {
+      filter = { userid: userid }; // only filter if userid is provided
     }
-  } else {
-    response.json({
-      success: false,
-      message: "User not found",
-    });
+
+    const posts = await db.collection("posts").find(filter).toArray();
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch posts" });
   }
 });
 
-//Delete one
-postRoutes.route("/posts/:id").delete(async (request, response) => {
-  let db = database.getDb();
-  let data = await db
-    .collection("posts")
-    .deleteOne({ _id: new ObjectID(request.params.id) });
+// GET one post
+postRoutes.get("/posts/:id", async (req, res) => {
+  try {
+    const db = database.getDb();
+    const post = await db
+      .collection("posts")
+      .findOne({ _id: new ObjectId(req.params.id) });
+    post ? res.json(post) : res.status(404).json({ error: "Post not found" });
+  } catch (err) {
+    res.status(400).json({ error: "Invalid ID" });
+  }
+});
 
-  response.json(data);
+// CREATE a post
+postRoutes.post("/posts", async (req, res) => {
+  try {
+    const db = database.getDb();
+    const newPost = {
+      userid: req.body.userid,
+      username: req.body.username,
+      category: req.body.category,
+      content: req.body.content,
+      date: req.body.date,
+      images: req.body.images,
+      tags: req.body.tags,
+      title: req.body.title,
+      comments: [],
+      views: 0,
+      reactions: 0,
+    };
+    const result = await db.collection("posts").insertOne(newPost);
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ error: "Failed to create post" });
+  }
+});
+
+// UPDATE a post (simplified, removed password logic unless intended)
+postRoutes.put("/posts/:id", async (req, res) => {
+  try {
+    const db = database.getDb();
+    const update = {
+      $set: {
+        ...req.body,
+      },
+    };
+    const result = await db
+      .collection("posts")
+      .updateOne({ _id: new ObjectId(req.params.id) }, update);
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ error: "Failed to update post" });
+  }
+});
+
+// DELETE a post
+postRoutes.delete("/posts/:id", async (req, res) => {
+  try {
+    const db = database.getDb();
+    const result = await db
+      .collection("posts")
+      .deleteOne({ _id: new ObjectId(req.params.id) });
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ error: "Failed to delete post" });
+  }
 });
 
 module.exports = postRoutes;
-
-//Login
-postRoutes.route("/posts/login").post(async (request, response) => {
-  let db = database.getDb();
-
-  const post = await db
-    .collection("posts")
-    .findOne({ email: request.body.email });
-
-  if (post) {
-    let confirmation = await bcrypt.compare(
-      request.body.password,
-      post.password
-    );
-
-    if (confirmation) {
-      response.json({ success: true, post });
-    } else {
-      response.json({
-        success: false,
-        message: "Incorrect postname or password.",
-      });
-    }
-  } else {
-    response.json({
-      success: false,
-      message: "User not found",
-      email: request.body.email,
-    });
-  }
-});

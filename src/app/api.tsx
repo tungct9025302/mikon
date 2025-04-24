@@ -2,6 +2,7 @@ import axios from "axios";
 
 const URL = "http://localhost:3000";
 
+//User
 export async function getUsers() {
   const response = await axios.get(`${URL}/users`);
   if (response.status === 200) {
@@ -43,4 +44,22 @@ export async function verifyUser(user) {
   } else {
     return;
   }
+}
+
+// Post
+export async function getPosts(userid) {
+  const response = await axios.get(`${URL}/posts`, {
+    params: { userid: userid },
+  });
+
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    return;
+  }
+}
+
+export async function createPost(post) {
+  const response = await axios.post(`${URL}/posts`, post);
+  return response;
 }

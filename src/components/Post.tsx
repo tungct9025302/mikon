@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar } from "@material-tailwind/react";
 import Image from "next/image";
-import YoimiyaIcon from "@/assets/yoimiya.png";
+import { getPosts } from "@/app/api";
+import { useAppSelector } from "./redux/store";
 
-//import icons
+// Import icons
 import CommentIcon from "@/assets/comment-icon.svg";
 import HeartIcon from "@/assets/heart.png";
 import LikeIcon from "@/assets/like.png";
@@ -15,316 +16,181 @@ import NotLikeIcon from "@/assets/notlike.png";
 import AddIcon from "@/assets/Add.svg";
 import FollowedIcon from "@/assets/followed.svg";
 
-export default function post() {
-  // useEffect(() => {
-  //   setLiked(postData["reacted"]);
-  // }, []);
-
+export default function Post() {
+  const [posts, setPosts] = useState([]);
   const [liked, setLiked] = useState(false);
-  const [reactionCount, setReactionCount] = useState(0);
   const [followed, setFollowed] = useState(false);
+  const userid: any = useAppSelector((state: any) => state.value.userid);
 
-  const postSamples = [
-    {
-      postID: 12,
-      avatar: "123",
-      name: "Phuoc Thinh",
-      time: "14/6/2024",
-      title: "Post title",
-      content: "Post content",
-      images: [
-        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
-        "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
-      ],
-      tags: ["Black Lives Matter", "123"],
-      viewCount: 5223,
-      reactionCount: 1232,
-      commentCount: 456,
-      reacted: false,
-      followedStatus: false,
-      category: "Genshin Impact",
-    },
-    {
-      postID: 16,
-      avatar: "123",
-      name: "Phuoc Thinh",
-      time: "15/6/2024",
-      title: "Post title",
-      content: "Post content",
-      images: [
-        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
-        "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
-      ],
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const result = await getPosts(userid);
+      console.log(result);
+      const enrichedPosts = result.map((post) => ({
+        ...post,
+        images: post.images?.length
+          ? post.images
+          : [
+              "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
+              "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
+            ],
+      }));
 
-      tags: ["Black Lives Matter", "Ok"],
-      viewCount: 2555,
-      reactionCount: 1161,
-      commentCount: 45,
-      reacted: false,
-      followedStatus: false,
-      category: "Genshin Impact",
-    },
-    {
-      postID: 17,
-      avatar: "123",
-      name: "Phuoc Thinh",
-      time: "15/6/2024",
-      title: "Post title",
-      content: "Post content",
-      images: [
-        "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
-        "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
-      ],
-      tags: ["Black Lives Matter", "Ok"],
-      viewCount: 24,
-      reactionCount: 12,
-      commentCount: 1,
-      reacted: false,
-      followedStatus: true,
-      category: "Genshin Impact",
-    },
-    // {
-    //   postID: 25,
-    //   avatar: "123",
-    //   name: "Phuoc Thinh",
-    //   time: "15/6/2024",
-    //   title: "Post title",
-    //   content: "Post content",
-    //   images: [
-    //     "https://upload-os-bbs.hoyolab.com/upload/2024/10/27/25120baa629fb211cfed00be760c9151_8651106814651433978.png",
-    //     "https://upload-os-bbs.hoyolab.com/upload/2024/10/21/426332059/02f1d675f0af96627fe19933195a6c42_8003415973668598951.jpg",
-    //   ],
-    //   tags: ["Black Lives Matter", "Ok"],
-    //   viewCount: 24,
-    //   reactionCount: 12,
-    //   commentCount: 1,
-    //   reacted: false,
-    //   followedStatus: true,
-    //   category: "Genshin Impact",
-    // },
-  ];
+      setPosts(enrichedPosts);
+    };
 
-  function handleAddReaction(requestedPostID) {
-    for (var i = 0; i < postSamples.length; i++) {
-      if (
-        postSamples[i]["postID"] == requestedPostID &&
-        postSamples[i]["reactionCount"] > 0
-      ) {
-        postSamples[i]["reactionCount"] += 1;
-        postSamples[i]["reacted"] == true;
-        setReactionCount(postSamples[i]["reactionCount"]);
-      }
+    if (userid) {
+      fetchPosts();
     }
-  }
+  }, [userid]);
 
-  function handleDeduceReaction(requestedPostID) {
-    for (var i = 0; i < postSamples.length; i++) {
-      if (
-        postSamples[i]["postID"] == requestedPostID &&
-        postSamples[i]["reactionCount"] > 0
-      ) {
-        postSamples[i]["reactionCount"] -= 1;
-        postSamples[i]["reacted"] == false;
-        setReactionCount(postSamples[i]["reactionCount"]);
-      }
-    }
-  }
+  const toggleFollow = () => setFollowed(!followed);
+  const toggleLike = () => setLiked(!liked);
 
   function renderPostByData(postData, index) {
     return (
       <div
         key={index}
-        className={
-          index + 1 == postSamples.length
-            ? `p-5 flex flex-col max-h-[50vh]`
-            : `p-5 flex flex-col border-b max-h-[50vh]`
-        }
+        className={`p-5 flex flex-col ${
+          index + 1 === posts.length ? "" : "border-b"
+        }`}
       >
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-row items-center">
-            <div className="mr-2">
-              <Avatar
-                src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da848a8d238bd4e05684e3faf4d4"
-                width={60}
-                height={60}
-                alt=""
-                className="m-1 rounded-full"
-                variant="rounded"
-                placeholder={undefined}
-              />
-            </div>
-
+        <div className="flex flex-col sm:flex-row justify-between">
+          <div className="flex items-center space-x-3 mb-3 sm:mb-0">
+            <Avatar
+              src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da848a8d238bd4e05684e3faf4d4"
+              width={60}
+              height={60}
+              alt="Avatar"
+              className="rounded-full"
+            />
             <div className="flex flex-col">
-              <div className="text-2xl font-semibold text-black">
-                {postData["name"]}
-              </div>
-              <div className="flex flex-row space-x-5">
-                <div className="text-md font-semibold text-zinc-600">
-                  {postData["category"]}
-                </div>
-                <div className="text-md font-normal text-slate-500">
-                  {postData["time"]}
-                </div>
+              <p className="text-xl sm:text-2xl font-semibold text-black">
+                {postData.username}
+              </p>
+              <div className="flex space-x-3 sm:space-x-5 items-center">
+                <p className="text-md sm:text-lg font-semibold text-zinc-600">
+                  {postData.category}
+                </p>
+                <p className="text-sm sm:text-md text-slate-500">
+                  {postData.date}
+                </p>
               </div>
             </div>
           </div>
-
-          <div className="flex flex-row items-start justify-around mx-2 pb-2 items-center pr-5">
-            {postData["followedStatus"] ? (
-              <div className="flex flex-row space-x-1">
-                <Image
-                  src={AddIcon}
-                  width={30}
-                  height={30}
-                  alt={""}
-                  onClick={() => {
-                    setFollowed(!followed);
-                  }}
-                ></Image>
-                <p className="font-semibold">Follow</p>
-              </div>
-            ) : (
-              <div className="flex flex-row space-x-1">
+          <div className="flex items-center space-x-2">
+            {postData.followedStatus ? (
+              <div className="flex space-x-1">
                 <Image
                   src={FollowedIcon}
                   width={30}
                   height={30}
-                  alt={""}
-                  onClick={() => {
-                    setFollowed(!followed);
-                  }}
-                ></Image>
+                  alt="Followed"
+                  onClick={toggleFollow}
+                />
                 <p className="font-semibold text-[#9C9CFF]">Followed</p>
+              </div>
+            ) : (
+              <div className="flex space-x-1">
+                <Image
+                  src={AddIcon}
+                  width={30}
+                  height={30}
+                  alt="Follow"
+                  onClick={toggleFollow}
+                />
+                <p className="font-semibold">Follow</p>
               </div>
             )}
           </div>
         </div>
 
-        <div className="flex flex-col space-y-2">
-          <div className="">
-            <p className="text-2xl font-medium text-black">
-              {postData["title"]}
-            </p>
-          </div>
-          <div className="">
-            <p className="text-md font-normal text-slate-600">
-              {postData["content"]}
-            </p>
-          </div>
-
-          <div className="flex flex-row space-x-4">
-            {postData["images"].map((imageSrc, index) => {
-              return (
-                <div key={index} className="">
-                  <img
-                    src={imageSrc}
-                    className="max-h-[20vh] max-w-[20vw] rounded-xl"
-                  ></img>
-                </div>
-              );
-            })}
+        <div className="space-y-3">
+          <p className="text-lg sm:text-2xl font-medium text-black">
+            {postData.title}
+          </p>
+          <p className="text-sm sm:text-md text-slate-600">
+            {postData.content}
+          </p>
+          <div className="flex flex-wrap space-x-4">
+            {postData.images.map((imageSrc, index) => (
+              <img
+                key={index}
+                src={imageSrc}
+                className="max-h-[30vh] sm:max-h-[40vh] max-w-full sm:max-w-[45%] rounded-xl object-cover mb-3 sm:mb-0"
+              />
+            ))}
           </div>
 
           {/* Tags */}
-          <div className="flex flex-row space-x-4 rounded-xl">
-            {postData["tags"].map((tag, index) => {
-              return (
-                <div
-                  key={index}
-                  className="group/tag max-h-[20vh] flex flex-row rounded-xl 
-                  p-1 bg-[#FAFAFA] whitespace-nowrap space-x-1 hover:bg-[#B5C1FF]"
-                >
-                  <Image
-                    src={HashtagIcon}
-                    width={15}
-                    height={15}
-                    alt=""
-                    className="group-hover/tag:hidden"
-                  ></Image>
-
-                  <Image
-                    src={HashtagIconWhite}
-                    width={15}
-                    height={15}
-                    alt=""
-                    className="hidden group-hover/tag:block"
-                  ></Image>
-
-                  <p className="text-[#A6A6FF] font-semibold group-hover/tag:text-white ">
-                    {tag}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-4 mx-4 flex flex-row justify-between">
-            <div className="flex flex-row items-center space-x-1">
-              <Image src={ViewedIcon} width={30} height={30} alt=""></Image>
-              <p className="text-slate-500 font-semibold">
-                {postData["viewCount"]}
-              </p>
-            </div>
-            <div className="flex flex-row w-[15vw] justify-between">
-              <div className="flex flex-row  items-center">
-                <Image src={CommentIcon} width={40} height={40} alt=""></Image>
-                <p className="text-slate-500 font-semibold">
-                  {postData["commentCount"]}
+          <div className="flex flex-wrap space-x-4">
+            {postData.tags.map((tag, index) => (
+              <div
+                key={index}
+                className="group/tag flex items-center space-x-2 p-1 bg-[#FAFAFA] rounded-xl hover:bg-[#B5C1FF]"
+              >
+                <Image
+                  src={HashtagIcon}
+                  width={15}
+                  height={15}
+                  alt="Tag"
+                  className="group-hover/tag:hidden"
+                />
+                <Image
+                  src={HashtagIconWhite}
+                  width={15}
+                  height={15}
+                  alt="Tag"
+                  className="hidden group-hover/tag:block"
+                />
+                <p className="text-[#A6A6FF] font-semibold group-hover/tag:text-white">
+                  {tag}
                 </p>
               </div>
-              <div className="flex flex-row">
-                <div className="flex flex-row items-center space-x-1 mr-2">
-                  <div className="absolute">
-                    <Image
-                      src={Like2Icon}
-                      width={30}
-                      height={30}
-                      alt=""
-                    ></Image>
-                  </div>
-                  <div className="relative pl-2">
-                    <Image
-                      src={HeartIcon}
-                      width={30}
-                      height={30}
-                      alt=""
-                    ></Image>
-                  </div>
+            ))}
+          </div>
+
+          <div className="flex justify-between mt-4">
+            <div className="flex items-center space-x-2">
+              <Image src={ViewedIcon} width={30} height={30} alt="Views" />
+              <p className="text-slate-500 font-semibold">{postData.views}</p>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center">
+                <Image
+                  src={CommentIcon}
+                  width={40}
+                  height={40}
+                  alt="Comments"
+                />
+                <p className="text-slate-500 font-semibold">
+                  {postData.comments}
+                </p>
+              </div>
+              <div className="flex flex-row items-center space-x-2">
+                <div className="flex items-center space-x-1">
+                  <Image src={Like2Icon} width={30} height={30} alt="Like2" />
+                  <Image src={HeartIcon} width={30} height={30} alt="Heart" />
                 </div>
 
-                {liked ? (
-                  <div
-                    className="flex flex-row items-center space-x-1 border-2 border-transparent rounded-full p-1 bg-[#CEE5FF]"
-                    onClick={() => {
-                      setLiked(!liked);
-                      handleDeduceReaction(postData["postID"]);
-                    }}
-                  >
-                    <Image src={LikeIcon} width={25} height={25} alt=""></Image>
-                    <p className="text-slate-500 font-semibold">
-                      {/* {postData["reactionCount"]} */}
-                      {reactionCount}
-                    </p>
-                  </div>
-                ) : (
-                  <div
-                    className="flex flex-row items-center space-x-1"
-                    onClick={() => {
-                      setLiked(!liked);
-                      handleAddReaction(postData["postID"]);
-                    }}
-                  >
-                    <Image
-                      src={NotLikeIcon}
-                      width={25}
-                      height={25}
-                      alt=""
-                    ></Image>
-                    <p className="text-slate-500 font-semibold">
-                      {postData["reactionCount"]}
-                    </p>
-                  </div>
-                )}
+                <div
+                  className={`flex items-center space-x-1 ${
+                    liked
+                      ? "border-2 border-transparent rounded-full p-1 bg-[#CEE5FF]"
+                      : ""
+                  }`}
+                  onClick={toggleLike}
+                >
+                  <Image
+                    src={liked ? LikeIcon : NotLikeIcon}
+                    width={25}
+                    height={25}
+                    alt="Like"
+                  />
+                  <p className="text-slate-500 font-semibold">
+                    {postData.reactions}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -334,10 +200,8 @@ export default function post() {
   }
 
   return (
-    <div className="flex flex-col">
-      {postSamples.map((postData, index) => {
-        return renderPostByData(postData, index);
-      })}
+    <div className="flex flex-col space-y-5">
+      {posts.map((postData, index) => renderPostByData(postData, index))}
     </div>
   );
 }

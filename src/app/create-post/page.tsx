@@ -21,31 +21,43 @@ import HeaderIcon from "@/assets/header.svg";
 
 import Header from "@/components/Header";
 import CategoryDropdown from "@/components/Dropdowns/CategoryDropdown";
+import { createPost, getUser } from "../api";
+import Loading from "@/components/LoadingEffect/Loading";
 
 export default function createpost() {
+  let [userData, setUserData] = useState({});
   let [loading, setLoading] = useState(false);
   let [tagList, setTagList] = useState([""]);
   let [postContent, setPostContent] = useState({
     title: "",
     content: "",
     category: "",
-    date: "",
-    reactions: "",
-    comments: "",
-    views: "",
     tags: [""],
     images: [],
   });
+  const [postType, setPostType] = useState(0);
+  const userid: any = useAppSelector((state: any) => state.value.userid);
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const userid: any = useAppSelector((state: any) => state.value.userid);
 
-  //To be checked
-  const [postType, setPostType] = useState(0);
   let postTypes = [{ name: "Post" }];
 
   const [image, setImage] = useState(null);
+
+  //To be checked
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const result = await getUser(userid);
+
+      setUserData(result);
+    };
+
+    if (userid) {
+      fetchUserData();
+    }
+  }, [userid]);
 
   function handleChange(e) {
     var value = e.target.value;
@@ -53,6 +65,11 @@ export default function createpost() {
     updatedTags[updatedTags.length - 1] = value;
 
     setTagList(updatedTags);
+
+    setPostContent({
+      ...postContent,
+      tags: updatedTags,
+    });
   }
 
   function handleKeyDown(e) {
@@ -261,6 +278,35 @@ export default function createpost() {
     textarea.style.height = textarea.scrollHeight + "px";
   }
 
+  function formatDate() {
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+    const year = d.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+
+    let response = await createPost({
+      ...postContent,
+      userid: userid,
+      date: formatDate(),
+      username: userData["name"],
+    });
+
+    if (response.status !== 200) {
+      alert("Post could not be created");
+    }
+    if (response.status === 200) {
+      router.push("/");
+    }
+    setLoading(false);
+  }
+
   function renderContentSection() {
     return (
       <div className="flex flex-col mx-10 space-y-5">
@@ -322,11 +368,7 @@ export default function createpost() {
 
           if (!valid) return;
 
-          setPostContent({
-            ...postContent,
-            date: submitTime,
-            tags: tagList,
-          });
+          handleSubmit(event);
         }}
         className="flex flex-row items-center rounded-full bg-[#a6edff] w-fit py-2 px-5 border-[#CACACA] border-2 space-x-2 cursor-pointer text-lg text-gray-800 font-semibold"
       >
@@ -337,6 +379,15 @@ export default function createpost() {
 
   return (
     <div className="flex flex-col">
+      <div
+        className={
+          loading
+            ? "absolute flex justify-center w-full h-full items-center z-10"
+            : "hidden"
+        }
+      >
+        <Loading></Loading>
+      </div>
       <Header accessedCreate={false} accessedSearch={false}></Header>
 
       <div className="bg-[#F5F6F7] h-screen flex flex-row justify-center pt-6">
